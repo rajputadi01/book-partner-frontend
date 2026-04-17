@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Royalty Schedule Harness')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h1 style="border-bottom: 2px solid #3498db; padding-bottom: 10px;">Royalty Schedule: Operations Menu</h1>
+        <p>Select a specific endpoint to test the service method.</p>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+            <a th:href="@{/web/roysched/create}" class="btn btn-success">1. createRoyaltySchedule (POST)</a>
+            <a th:href="@{/web/roysched/get-all}" class="btn">2. getAllRoyaltySchedules (GET)</a>
+            <a th:href="@{/web/roysched/get-by-id}" class="btn">3. getRoyaltyScheduleById (GET)</a>
+            <a th:href="@{/web/roysched/update}" class="btn" style="background-color: #f39c12;">4. updateRoyaltySchedule (PUT)</a>
+            <a th:href="@{/web/roysched/patch}" class="btn" style="background-color: #e67e22;">5. patchRoyaltySchedule (PATCH)</a>
+            <a th:href="@{/web/roysched/filter/range}" class="btn">6. getRoyaltySchedulesByRange (GET)</a>
+            <a th:href="@{/web/roysched/filter/title}" class="btn">7. getRoyaltySchedulesByTitleId (GET)</a>
+            <a th:href="@{/web/roysched/title}" class="btn" style="background-color: #9b59b6;">8. getTitleByRoyaltySchedule (GET)</a>
+        </div>
+    </div>
+</body>
+</html>

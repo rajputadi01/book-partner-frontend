@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Transaction Details')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h2>Sales Details Record</h2>
+        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
+            <p><strong>Store ID:</strong> <span th:text="${sale.store.storId}"></span></p>
+            <p><strong>Order Number:</strong> <span th:text="${sale.ordNum}"></span></p>
+            <p><strong>Title ID:</strong> <span th:text="${sale.title.titleId}"></span></p>
+            <hr>
+            <p><strong>Quantity:</strong> <span th:text="${sale.qty}"></span></p>
+            <p><strong>Payment Terms:</strong> <span th:text="${sale.payterms}"></span></p>
+            <p><strong>Order Date:</strong> <span th:text="${#temporals.format(sale.ordDate, 'yyyy-MM-dd HH:mm')}"></span></p>
+        </div>
+        <br><a th:href="@{/web/sales/operations}" class="btn">&larr; Back to Menu</a>
+    </div>
+</body>
+</html>

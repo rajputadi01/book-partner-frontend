@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('BI Aggregation Result')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container" style="max-width: 600px; text-align: center;">
+        <h2 th:text="${biTitle}"></h2>
+        <p style="color: #7f8c8d; margin-bottom: 30px;" th:text="${biDescription}"></p>
+        
+        <div style="background-color: #e8f4f8; border: 2px solid #3498db; border-radius: 10px; padding: 40px; margin-bottom: 30px;">
+            <span style="font-size: 48px; font-weight: bold; color: #2c3e50;" th:text="${biResult}"></span>
+        </div>
+        
+        <a th:href="@{/web/sales/operations}" class="btn btn-success">Run Another Operation</a>
+    </div>
+</body>
+</html>

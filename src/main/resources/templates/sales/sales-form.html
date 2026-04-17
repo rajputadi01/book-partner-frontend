@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Sales Form')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h2 th:text="${formTitle}"></h2>
+        
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px;" th:text="${errorMessage}"></div>
+        
+        <form th:action="${actionUrl}" th:object="${sale}" method="post">
+            <input type="hidden" name="isUpdate" th:value="${isUpdate}">
+            
+            <h3 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">Composite Key Attributes</h3>
+            <div class="form-group">
+                <label>Store ID:</label>
+                <input type="text" th:field="*{store.storId}" th:readonly="${isUpdate}" th:style="${isUpdate ? 'background-color: #eee;' : ''}">
+                <span class="error" th:if="${#fields.hasErrors('store')}" th:errors="*{store}"></span>
+            </div>
+            <div class="form-group">
+                <label>Order Number:</label>
+                <input type="text" th:field="*{ordNum}" th:readonly="${isUpdate}" th:style="${isUpdate ? 'background-color: #eee;' : ''}">
+                <span class="error" th:if="${#fields.hasErrors('ordNum')}" th:errors="*{ordNum}"></span>
+            </div>
+            <div class="form-group">
+                <label>Title ID:</label>
+                <input type="text" th:field="*{title.titleId}" th:readonly="${isUpdate}" th:style="${isUpdate ? 'background-color: #eee;' : ''}">
+                <span class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+            </div>
+
+            <h3 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">Payload Data</h3>
+            <div class="form-group">
+                <label>Quantity (>= 1):</label>
+                <input type="number" th:field="*{qty}">
+                <span class="error" th:if="${#fields.hasErrors('qty')}" th:errors="*{qty}"></span>
+            </div>
+            <div class="form-group">
+                <label>Payment Terms:</label>
+                <input type="text" th:field="*{payterms}">
+                <span class="error" th:if="${#fields.hasErrors('payterms')}" th:errors="*{payterms}"></span>
+            </div>
+            <div class="form-group">
+                <label>Order Date (Leave blank for default):</label>
+                <input type="datetime-local" th:field="*{ordDate}">
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit Payload</button>
+            <a th:href="@{/web/sales/operations}" class="btn btn-danger">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
