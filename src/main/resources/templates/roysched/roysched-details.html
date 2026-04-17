@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Schedule Details')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h2>Schedule Details Record</h2>
+        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
+            <p><strong>Schedule ID:</strong> <span th:text="${schedule.royschedId}"></span></p>
+            <p><strong>Title ID:</strong> <span th:text="${schedule.title.titleId}"></span></p>
+            <hr>
+            <p><strong>Sales Low Range:</strong> <span th:text="${schedule.lorange}"></span></p>
+            <p><strong>Sales High Range:</strong> <span th:text="${schedule.hirange}"></span></p>
+            <p><strong>Royalty Payout:</strong> <span th:text="${schedule.royalty}"></span>%</p>
+        </div>
+        <br><a th:href="@{/web/roysched/operations}" class="btn">&larr; Back to Menu</a>
+    </div>
+</body>
+</html>

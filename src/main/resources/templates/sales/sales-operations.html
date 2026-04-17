@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Sales Harness')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h1 style="border-bottom: 2px solid #3498db; padding-bottom: 10px;">Sales Entity: Operations Menu</h1>
+        <p>Select a specific endpoint to test the service method.</p>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+            <a th:href="@{/web/sales/create}" class="btn btn-success">1. createSale (POST)</a>
+            <a th:href="@{/web/sales/get-all}" class="btn">2. getAllSales (GET)</a>
+            <a th:href="@{/web/sales/get-by-id}" class="btn">3. getSaleById (GET)</a>
+            <a th:href="@{/web/sales/update}" class="btn" style="background-color: #f39c12;">4. updateSale (PUT)</a>
+            <a th:href="@{/web/sales/patch}" class="btn" style="background-color: #e67e22;">5. patchSale (PATCH)</a>
+            <a th:href="@{/web/sales/filter/store}" class="btn">6. getSalesByStoreId (GET)</a>
+            <a th:href="@{/web/sales/filter/title}" class="btn">7. getSalesByTitleId (GET)</a>
+            <a th:href="@{/web/sales/filter/payterms}" class="btn">8. getSalesByPayterms (GET)</a>
+            <a th:href="@{/web/sales/bi/total-qty/store}" class="btn" style="background-color: #9b59b6;">9. getTotalQtyByStore (GET Aggregation)</a>
+            <a th:href="@{/web/sales/bi/count/store}" class="btn" style="background-color: #9b59b6;">10. getTransactionCountByStore (GET Aggregation)</a>
+            <a th:href="@{/web/sales/bi/total-qty/title}" class="btn" style="background-color: #9b59b6;">11. getTotalQtyByTitle (GET Aggregation)</a>
+        </div>
+    </div>
+</body>
+</html>
