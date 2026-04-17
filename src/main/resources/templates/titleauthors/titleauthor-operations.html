@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('TitleAuthors Harness')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h1 style="border-bottom: 2px solid #3498db; padding-bottom: 10px;">TitleAuthors: Operations Menu</h1>
+        <p>Select a specific endpoint to test the service method.</p>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+            <a th:href="@{/web/titleauthors/create}" class="btn btn-success">1. createTitleAuthor (POST)</a>
+            <a th:href="@{/web/titleauthors/get-all}" class="btn">2. getAllTitleAuthors (GET)</a>
+            <a th:href="@{/web/titleauthors/get-by-id}" class="btn">3. getTitleAuthorById (GET)</a>
+            <a th:href="@{/web/titleauthors/update}" class="btn" style="background-color: #f39c12;">4. updateTitleAuthor (PUT)</a>
+            <a th:href="@{/web/titleauthors/patch}" class="btn" style="background-color: #e67e22;">5. patchTitleAuthor (PATCH)</a>
+            <a th:href="@{/web/titleauthors/filter/lead}" class="btn">6. getLeadAuthors (GET)</a>
+            <a th:href="@{/web/titleauthors/filter/author}" class="btn" style="background-color: #9b59b6;">7. filterTitleAuthorsByAuthorId (GET)</a>
+            <a th:href="@{/web/titleauthors/filter/title}" class="btn" style="background-color: #9b59b6;">8. filterTitleAuthorsByTitleId (GET)</a>
+            <a th:href="@{/web/titleauthors/filter/royalty}" class="btn" style="background-color: #9b59b6;">9. filterTitleAuthorsByRoyalty (GET)</a>
+            <a th:href="@{/web/titleauthors/search}" class="btn" style="background-color: #34495e;">10. search (Multi-Parameter Dynamic GET)</a>
+        </div>
+    </div>
+</body>
+</html>
