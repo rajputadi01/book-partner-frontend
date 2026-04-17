@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Store Relational Data')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h2>Store associated with Discount: <span th:text="${targetType}"></span></h2>
+        <a th:href="@{/web/discounts/operations}" class="btn" style="margin-bottom: 15px;">&larr; Back to Menu</a>
+        
+        <div th:if="${store == null}" style="background-color: #d4edda; color: #155724; padding: 20px; border-radius: 5px; border-left: 5px solid #28a745;">
+            <h3>Global Discount Active</h3>
+            <p>This discount rule is completely Global. It is not constrained to any single store ID.</p>
+        </div>
+
+        <div th:if="${store != null}">
+            <table>
+                <thead><tr><th>Store ID</th><th>Store Name</th><th>City</th><th>State</th><th>Zip</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td th:text="${store.storId}"></td>
+                        <td th:text="${store.storName}"></td>
+                        <td th:text="${store.city}"></td>
+                        <td th:text="${store.state}"></td>
+                        <td th:text="${store.zip}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Mapping Details')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h2>TitleAuthor Contract Record</h2>
+        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
+            <p><strong>Author ID:</strong> <span th:text="${titleAuthor.author.auId}"></span></p>
+            <p><strong>Title ID:</strong> <span th:text="${titleAuthor.title.titleId}"></span></p>
+            <hr>
+            <p><strong>Author Order Status:</strong> <span th:text="${titleAuthor.auOrd}"></span></p>
+            <p><strong>Allocated Royalty:</strong> <span th:text="${titleAuthor.royaltyPer}"></span>%</p>
+        </div>
+        <br><a th:href="@{/web/titleauthors/operations}" class="btn">&larr; Back to Menu</a>
+    </div>
+</body>
+</html>

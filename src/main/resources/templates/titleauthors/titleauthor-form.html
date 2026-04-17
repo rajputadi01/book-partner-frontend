@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('TitleAuthor Form')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h2 th:text="${formTitle}"></h2>
+        
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px;" th:text="${errorMessage}"></div>
+        
+        <form th:action="${actionUrl}" th:object="${titleAuthor}" method="post">
+            <input type="hidden" name="isUpdate" th:value="${isUpdate}">
+            
+            <h3 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">Composite Key Attributes</h3>
+            <div class="form-group">
+                <label>Author ID:</label>
+                <input type="text" th:field="*{author.auId}" th:readonly="${isUpdate}" th:style="${isUpdate ? 'background-color: #eee;' : ''}">
+                <span class="error" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
+            </div>
+            <div class="form-group">
+                <label>Title ID:</label>
+                <input type="text" th:field="*{title.titleId}" th:readonly="${isUpdate}" th:style="${isUpdate ? 'background-color: #eee;' : ''}">
+                <span class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+            </div>
+
+            <h3 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">Contract Attributes</h3>
+            <div class="form-group">
+                <label>Author Order (e.g., 1 for Lead Author):</label>
+                <input type="number" th:field="*{auOrd}">
+                <span class="error" th:if="${#fields.hasErrors('auOrd')}" th:errors="*{auOrd}"></span>
+            </div>
+            <div class="form-group">
+                <label>Royalty Percentage (Max 100% combined per book):</label>
+                <input type="number" th:field="*{royaltyPer}">
+                <span class="error" th:if="${#fields.hasErrors('royaltyPer')}" th:errors="*{royaltyPer}"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit Payload</button>
+            <a th:href="@{/web/titleauthors/operations}" class="btn btn-danger">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

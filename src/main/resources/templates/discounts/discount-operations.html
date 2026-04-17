@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Discounts Harness')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h1 style="border-bottom: 2px solid #3498db; padding-bottom: 10px;">Discounts: Operations Menu</h1>
+        <p>Select a specific endpoint to test the service method.</p>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+            <a th:href="@{/web/discounts/create}" class="btn btn-success">1. createDiscount (POST)</a>
+            <a th:href="@{/web/discounts/get-all}" class="btn">2. getAllDiscounts (GET)</a>
+            <a th:href="@{/web/discounts/get-by-type}" class="btn">3. getDiscountByType (GET)</a>
+            <a th:href="@{/web/discounts/update}" class="btn" style="background-color: #f39c12;">4. updateDiscount (PUT)</a>
+            <a th:href="@{/web/discounts/patch}" class="btn" style="background-color: #e67e22;">5. patchDiscount (PATCH)</a>
+            <a th:href="@{/web/discounts/filter/qty}" class="btn">6. filterDiscountsByQty (GET)</a>
+            <a th:href="@{/web/discounts/filter/amount}" class="btn">7. filterDiscountsByAmount (GET)</a>
+            <a th:href="@{/web/discounts/filter/store}" class="btn">8. filterDiscountsByStore (GET)</a>
+            <a th:href="@{/web/discounts/store}" class="btn" style="background-color: #9b59b6;">9. getStoreByDiscountType (GET)</a>
+        </div>
+    </div>
+</body>
+</html>

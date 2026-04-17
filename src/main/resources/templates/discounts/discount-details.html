@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Discount Details')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h2>Discount Details Record</h2>
+        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
+            <p><strong>Discount Type (ID):</strong> <span th:text="${discount.discountType}"></span></p>
+            <p><strong>Applies to Store:</strong> 
+                <span th:if="${discount.store != null}" th:text="${discount.store.storId}"></span>
+                <span th:if="${discount.store == null}" style="color: #27ae60; font-weight: bold;">Global (All Stores)</span>
+            </p>
+            <hr>
+            <p><strong>Low Quantity:</strong> <span th:text="${discount.lowQty}"></span></p>
+            <p><strong>High Quantity:</strong> <span th:text="${discount.highQty}"></span></p>
+            <p><strong>Discount Amount:</strong> <span th:text="${discount.discountAmount}"></span>%</p>
+        </div>
+        <br><a th:href="@{/web/discounts/operations}" class="btn">&larr; Back to Menu</a>
+    </div>
+</body>
+</html>
