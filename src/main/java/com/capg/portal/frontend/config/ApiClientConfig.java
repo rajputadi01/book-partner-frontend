@@ -9,6 +9,7 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import com.capg.portal.frontend.client.AuthorClient;
 import com.capg.portal.frontend.client.DiscountClient;
 import com.capg.portal.frontend.client.JobClient;
+import com.capg.portal.frontend.client.PublisherClient;
 import com.capg.portal.frontend.client.RoyaltyScheduleClient;
 import com.capg.portal.frontend.client.SalesClient;
 import com.capg.portal.frontend.client.StoreClient;
@@ -37,6 +38,11 @@ public class ApiClientConfig {
     public JobClient jobClient(HttpServiceProxyFactory factory) 
     {
         return factory.createClient(JobClient.class);
+    }
+    
+    @Bean
+    public PublisherClient publisherClient(HttpServiceProxyFactory factory) {
+        return factory.createClient(PublisherClient.class);
     }
     
     @Bean
@@ -69,6 +75,8 @@ public class ApiClientConfig {
     public SalesClient salesClient(HttpServiceProxyFactory factory) {
         return factory.createClient(SalesClient.class);
     }
+    
+    
 
     /* * NOTE: As we create your 10 HTTP Interfaces (like TitleClient), 
      * we will come back to this file and add a simple @Bean method for each one.
