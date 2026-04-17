@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Authors for Store')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h2>Authors Stocked at Store ID: <span th:text="${targetId}"></span></h2>
+        <a th:href="@{/web/stores/operations}" class="btn" style="margin-bottom: 15px;">&larr; Back to Menu</a>
+        <table>
+            <thead><tr><th>Author ID</th><th>First Name</th><th>Last Name</th></tr></thead>
+            <tbody>
+                <tr th:each="author : ${authors}">
+                    <td th:text="${author.auId}"></td>
+                    <td th:text="${author.auFname}"></td>
+                    <td th:text="${author.auLname}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

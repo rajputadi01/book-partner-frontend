@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Sales for Store')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h2>Sales Transactions at Store ID: <span th:text="${targetId}"></span></h2>
+        <a th:href="@{/web/stores/operations}" class="btn" style="margin-bottom: 15px;">&larr; Back to Menu</a>
+        <table>
+            <thead><tr><th>Order #</th><th>Title ID</th><th>Date</th><th>Qty</th><th>Terms</th></tr></thead>
+            <tbody>
+                <tr th:each="sale : ${sales}">
+                    <td th:text="${sale.ordNum}"></td>
+                    <td th:text="${sale.title.titleId}"></td>
+                    <td th:text="${#temporals.format(sale.ordDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${sale.qty}"></td>
+                    <td th:text="${sale.payterms}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

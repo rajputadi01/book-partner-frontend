@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Author Form')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h2 th:text="${formTitle}"></h2>
+        
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px;" th:text="${errorMessage}"></div>
+        
+        <form th:action="${actionUrl}" th:object="${author}" method="post">
+            <input type="hidden" name="isUpdate" th:value="${isUpdate}">
+            
+            <div class="form-group">
+                <label>Author ID (XXX-XX-XXXX):</label>
+                <input type="text" th:field="*{auId}" th:readonly="${isUpdate}" th:style="${isUpdate ? 'background-color: #eee;' : ''}">
+                <span class="error" th:if="${#fields.hasErrors('auId')}" th:errors="*{auId}"></span>
+            </div>
+            <div class="form-group">
+                <label>First Name:</label>
+                <input type="text" th:field="*{auFname}">
+                <span class="error" th:if="${#fields.hasErrors('auFname')}" th:errors="*{auFname}"></span>
+            </div>
+            <div class="form-group">
+                <label>Last Name:</label>
+                <input type="text" th:field="*{auLname}">
+                <span class="error" th:if="${#fields.hasErrors('auLname')}" th:errors="*{auLname}"></span>
+            </div>
+            <div class="form-group">
+                <label>Phone (XXX XXX-XXXX):</label>
+                <input type="text" th:field="*{phone}">
+                <span class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+            </div>
+            <div class="form-group">
+                <label>Address:</label>
+                <input type="text" th:field="*{address}">
+            </div>
+            <div class="form-group">
+                <label>City:</label>
+                <input type="text" th:field="*{city}">
+            </div>
+            <div class="form-group">
+                <label>State (2 chars):</label>
+                <input type="text" th:field="*{state}">
+                <span class="error" th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></span>
+            </div>
+            <div class="form-group">
+                <label>Zip (5 digits):</label>
+                <input type="text" th:field="*{zip}">
+                <span class="error" th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}"></span>
+            </div>
+            <div class="form-group">
+                <label>Contract (0 or 1):</label>
+                <input type="number" th:field="*{contract}">
+                <span class="error" th:if="${#fields.hasErrors('contract')}" th:errors="*{contract}"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit Payload</button>
+            <a th:href="@{/web/authors/operations}" class="btn btn-danger">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

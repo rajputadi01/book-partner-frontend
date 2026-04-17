@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Contracts for Author')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h2>Contracts for Author ID: <span th:text="${targetId}"></span></h2>
+        <a th:href="@{/web/authors/operations}" class="btn" style="margin-bottom: 15px;">&larr; Back to Menu</a>
+        <table>
+            <thead><tr><th>Title ID</th><th>Author Order</th><th>Royalty Split</th></tr></thead>
+            <tbody>
+                <tr th:each="ta : ${titleAuthors}">
+                    <td th:text="${ta.title.titleId}"></td>
+                    <td th:text="${ta.auOrd}"></td>
+                    <td th:text="${ta.royaltyPer + '%'}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
