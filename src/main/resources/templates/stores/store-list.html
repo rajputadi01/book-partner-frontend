@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Store Results')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h2 th:text="${pageTitle}"></h2>
+        <a th:href="@{/web/stores/operations}" class="btn" style="margin-bottom: 15px;">&larr; Back to Menu</a>
+        <table>
+            <thead><tr><th>ID</th><th>Name</th><th>City</th><th>State</th><th>Zip</th></tr></thead>
+            <tbody>
+                <tr th:each="store : ${stores}">
+                    <td th:text="${store.storId}"></td>
+                    <td th:text="${store.storName}"></td>
+                    <td th:text="${store.city}"></td>
+                    <td th:text="${store.state}"></td>
+                    <td th:text="${store.zip}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

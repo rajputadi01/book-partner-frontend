@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Authors Harness')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container">
+        <h1 style="border-bottom: 2px solid #3498db; padding-bottom: 10px;">Authors: Operations Menu</h1>
+        <p>Select a specific endpoint to test the service method.</p>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
+            <a th:href="@{/web/authors/create}" class="btn btn-success">1. createAuthor (POST)</a>
+            <a th:href="@{/web/authors/get-all}" class="btn">2. getAllAuthors (GET)</a>
+            <a th:href="@{/web/authors/get-by-id}" class="btn">3. getAuthorById (GET)</a>
+            <a th:href="@{/web/authors/update}" class="btn" style="background-color: #f39c12;">4. updateAuthor (PUT)</a>
+            <a th:href="@{/web/authors/patch}" class="btn" style="background-color: #e67e22;">5. patchAuthor (PATCH)</a>
+            <a th:href="@{/web/authors/filter/contract}" class="btn">6. getAuthorsByContractStatus (GET)</a>
+            <a th:href="@{/web/authors/filter/city}" class="btn">7. getAuthorsByCity (GET)</a>
+            <a th:href="@{/web/authors/filter/state}" class="btn">8. getAuthorsByState (GET)</a>
+            <a th:href="@{/web/authors/relational/title-authors}" class="btn" style="background-color: #9b59b6;">9. getTitleAuthorsByAuthorId (GET)</a>
+            <a th:href="@{/web/authors/relational/titles}" class="btn" style="background-color: #9b59b6;">10. getTitlesByAuthorId (GET)</a>
+            <a th:href="@{/web/authors/relational/publishers}" class="btn" style="background-color: #9b59b6;">11. getPublishersByAuthorId (GET)</a>
+            <a th:href="@{/web/authors/relational/stores}" class="btn" style="background-color: #9b59b6;">12. getStoresByAuthorId (GET)</a>
+        </div>
+    </div>
+</body>
+</html>
