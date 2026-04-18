@@ -8,19 +8,22 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 import com.capg.portal.frontend.client.AuthorClient;
 import com.capg.portal.frontend.client.DiscountClient;
+import com.capg.portal.frontend.client.EmployeeClient;
 import com.capg.portal.frontend.client.JobClient;
 import com.capg.portal.frontend.client.PublisherClient;
 import com.capg.portal.frontend.client.RoyaltyScheduleClient;
 import com.capg.portal.frontend.client.SalesClient;
 import com.capg.portal.frontend.client.StoreClient;
 import com.capg.portal.frontend.client.TitleAuthorClient;
+import com.capg.portal.frontend.client.TitleClient;
 
 @Configuration
-public class ApiClientConfig {
-
+public class ApiClientConfig 
+{
     // 1. Create the base RestClient pointing to your Backend (Laptop B)
     @Bean
-    public RestClient customRestClient() {
+    public RestClient customRestClient() 
+    {
         return RestClient.builder()
                 .baseUrl("http://localhost:8080") // The IP of your backend server
                 .build();
@@ -28,12 +31,12 @@ public class ApiClientConfig {
 
     // 2. Create the Proxy Factory. This acts as the "Engine" that will power our Interfaces.
     @Bean
-    public HttpServiceProxyFactory httpServiceProxyFactory(RestClient customRestClient) {
+    public HttpServiceProxyFactory httpServiceProxyFactory(RestClient customRestClient) 
+    {
         RestClientAdapter adapter = RestClientAdapter.create(customRestClient);
         return HttpServiceProxyFactory.builderFor(adapter).build();
     }
     
- // --- NEW BEAN TO ADD ---
     @Bean
     public JobClient jobClient(HttpServiceProxyFactory factory) 
     {
@@ -76,14 +79,13 @@ public class ApiClientConfig {
         return factory.createClient(SalesClient.class);
     }
     
+    @Bean
+    public TitleClient titleClient(HttpServiceProxyFactory factory) {
+        return factory.createClient(TitleClient.class);
+    }
     
-
-    /* * NOTE: As we create your 10 HTTP Interfaces (like TitleClient), 
-     * we will come back to this file and add a simple @Bean method for each one.
-     * I am leaving a placeholder here so you see the pattern!
-     * * @Bean
-     * public TitleClient titleClient(HttpServiceProxyFactory factory) {
-     * return factory.createClient(TitleClient.class);
-     * }
-     */
+    @Bean
+    public EmployeeClient employeeClient(HttpServiceProxyFactory factory) {
+        return factory.createClient(EmployeeClient.class);
+    }
 }
