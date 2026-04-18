@@ -6,22 +6,25 @@
     <div class="container" style="max-width: 500px; text-align: center;">
         <h2>Execute: search (GET)</h2>
         <p style="color: #7f8c8d; margin-bottom: 20px;">All parameters are completely optional.</p>
+        
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 15px; border-left: 5px solid #e74c3c; margin-bottom: 20px; font-weight: bold; text-align: left;" th:text="${errorMessage}"></div>
+
         <form th:action="@{/web/titleauthors/search/result}" method="get">
             <div class="form-group">
                 <label>Author ID:</label>
-                <input type="text" name="auId">
+                <input type="text" name="auId" style="padding: 10px;">
             </div>
             <div class="form-group">
                 <label>Title ID:</label>
-                <input type="text" name="titleId">
+                <input type="text" name="titleId" style="padding: 10px;">
             </div>
             <div class="form-group">
                 <label>Minimum Royalty %:</label>
-                <input type="number" name="minRoyalty">
+                <input type="number" name="minRoyalty" style="padding: 10px;">
             </div>
             <div class="form-group">
                 <label>Maximum Royalty %:</label>
-                <input type="number" name="maxRoyalty">
+                <input type="number" name="maxRoyalty" style="padding: 10px;">
             </div>
             <button type="submit" class="btn btn-success">Execute Search Filter</button>
             <a th:href="@{/web/titleauthors/operations}" class="btn btn-danger">Cancel</a>

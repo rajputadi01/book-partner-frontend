@@ -6,7 +6,7 @@
     <div class="container">
         <h2 th:text="${formTitle}"></h2>
         
-        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px;" th:text="${errorMessage}"></div>
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-left: 4px solid #e74c3c;" th:text="${errorMessage}"></div>
         
         <form th:action="${actionUrl}" th:object="${sale}" method="post">
             <input type="hidden" name="isUpdate" th:value="${isUpdate}">

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Patch Job')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container" style="max-width: 600px;">
+        <h2 th:text="${formTitle}"></h2>
+        <p style="color: #e67e22; font-weight: bold; margin-bottom: 20px;">Only fill in the fields you wish to change. Leave the rest blank.</p>
+        
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-left: 4px solid #e74c3c;" th:text="${errorMessage}"></div>
+
+        <div style="background: #f8f9fa; padding: 15px; border: 1px solid #bdc3c7; border-radius: 5px; margin-bottom: 25px;">
+            <h4 style="margin-top: 0; border-bottom: 1px solid #ccc; padding-bottom: 5px; color: #2c3e50;">Current Database Record</h4>
+            <p style="margin: 5px 0;"><strong>Job ID:</strong> <span th:text="${currentJob.jobId}"></span></p>
+            <p style="margin: 5px 0;"><strong>Description:</strong> <span th:text="${currentJob.jobDesc}"></span></p>
+            <p style="margin: 5px 0;"><strong>Min Level:</strong> <span th:text="${currentJob.minLvl}"></span></p>
+            <p style="margin: 5px 0;"><strong>Max Level:</strong> <span th:text="${currentJob.maxLvl}"></span></p>
+        </div>
+
+        <form th:action="${actionUrl}" th:object="${job}" method="post">
+            <input type="hidden" th:field="*{jobId}">
+
+            <div class="form-group">
+                <label>New Job Description (Optional):</label>
+                <input type="text" th:field="*{jobDesc}" placeholder="Leave blank to keep current">
+            </div>
+
+            <div class="form-group">
+                <label>New Minimum Level (Optional):</label>
+                <input type="number" th:field="*{minLvl}" placeholder="Leave blank to keep current">
+            </div>
+
+            <div class="form-group">
+                <label>New Maximum Level (Optional):</label>
+                <input type="number" th:field="*{maxLvl}" placeholder="Leave blank to keep current">
+            </div>
+
+            <button type="submit" class="btn btn-success" style="margin-top: 10px;">Submit Patch Payload</button>
+            <a th:href="@{/web/jobs/operations}" class="btn btn-danger" style="margin-top: 10px;">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

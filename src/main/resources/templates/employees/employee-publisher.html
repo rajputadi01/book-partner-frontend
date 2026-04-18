@@ -5,7 +5,10 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2>Publisher details for Employee ID: <span th:text="${targetId}"></span></h2>
-        <a th:href="@{/web/employees/operations}" class="btn" style="margin-bottom: 15px;">&larr; Back to Menu</a>
+        <div style="margin-bottom: 20px;">
+            <a th:href="@{/web/employees/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Menu</a>
+            <a th:href="@{/web/employees/relational/publisher}" class="btn btn-primary" style="margin-left: 10px;">Search Another Employee</a>
+        </div>
         <table>
             <thead><tr><th>Pub ID</th><th>Name</th><th>City</th><th>State</th></tr></thead>
             <tbody>

@@ -5,7 +5,7 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2>Sales Details Record</h2>
-        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
+        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 20px;">
             <p><strong>Store ID:</strong> <span th:text="${sale.store.storId}"></span></p>
             <p><strong>Order Number:</strong> <span th:text="${sale.ordNum}"></span></p>
             <p><strong>Title ID:</strong> <span th:text="${sale.title.titleId}"></span></p>
@@ -14,7 +14,8 @@
             <p><strong>Payment Terms:</strong> <span th:text="${sale.payterms}"></span></p>
             <p><strong>Order Date:</strong> <span th:text="${#temporals.format(sale.ordDate, 'yyyy-MM-dd HH:mm')}"></span></p>
         </div>
-        <br><a th:href="@{/web/sales/operations}" class="btn">&larr; Back to Menu</a>
+        <a th:href="@{/web/sales/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Back to Menu</a>
+        <a th:href="@{/web/sales/get-by-id}" class="btn btn-primary" style="margin-left: 10px;">Search Another Transaction</a>
     </div>
 </body>
 </html>

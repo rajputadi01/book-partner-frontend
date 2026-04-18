@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Patch Transaction')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container" style="max-width: 600px;">
+        <h2 th:text="${formTitle}"></h2>
+        <p style="color: #e67e22; font-weight: bold; margin-bottom: 20px;">Only fill in the fields you wish to change. Leave the rest blank.</p>
+        
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-left: 4px solid #e74c3c;" th:text="${errorMessage}"></div>
+
+        <div style="background: #f8f9fa; padding: 15px; border: 1px solid #bdc3c7; border-radius: 5px; margin-bottom: 25px;">
+            <h4 style="margin-top: 0; border-bottom: 1px solid #ccc; padding-bottom: 5px; color: #2c3e50;">Current Transaction Data</h4>
+            <p style="margin: 5px 0;"><strong>Store ID:</strong> <span th:text="${currentRecord.store.storId}"></span></p>
+            <p style="margin: 5px 0;"><strong>Order Number:</strong> <span th:text="${currentRecord.ordNum}"></span></p>
+            <p style="margin: 5px 0;"><strong>Title ID:</strong> <span th:text="${currentRecord.title.titleId}"></span></p>
+            <hr>
+            <p style="margin: 5px 0;"><strong>Quantity:</strong> <span th:text="${currentRecord.qty}"></span></p>
+            <p style="margin: 5px 0;"><strong>Payment Terms:</strong> <span th:text="${currentRecord.payterms}"></span></p>
+            <p style="margin: 5px 0;"><strong>Order Date:</strong> <span th:text="${#temporals.format(currentRecord.ordDate, 'yyyy-MM-dd HH:mm')}"></span></p>
+        </div>
+
+        <form th:action="${actionUrl}" th:object="${sale}" method="post">
+            <input type="hidden" th:field="*{store.storId}">
+            <input type="hidden" th:field="*{ordNum}">
+            <input type="hidden" th:field="*{title.titleId}">
+
+            <h3 style="border-bottom: 1px solid #ccc; padding-bottom: 5px;">Update Payload</h3>
+            <div class="form-group">
+                <label>New Quantity (Optional):</label>
+                <input type="number" th:field="*{qty}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Payment Terms (Optional):</label>
+                <input type="text" th:field="*{payterms}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Order Date (Optional):</label>
+                <input type="datetime-local" th:field="*{ordDate}">
+            </div>
+
+            <button type="submit" class="btn btn-success" style="margin-top: 10px;">Submit Patch Payload</button>
+            <a th:href="@{/web/sales/operations}" class="btn btn-danger" style="margin-top: 10px;">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

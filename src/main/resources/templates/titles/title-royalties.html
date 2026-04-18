@@ -5,9 +5,21 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2>Royalty Brackets for Title ID: <span th:text="${targetId}"></span></h2>
-        <a th:href="@{/web/titles/operations}" class="btn" style="margin-bottom: 15px;">&larr; Menu</a>
+        
+        <div style="margin-bottom: 20px;">
+            <a th:href="@{/web/titles/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Menu</a>
+            <a th:href="@{/web/titles/relational/royalties}" class="btn btn-primary" style="margin-left: 10px;">Search Another Title</a>
+        </div>
+
         <table>
-            <thead><tr><th>Schedule ID</th><th>Low Volume</th><th>High Volume</th><th>Royalty (%)</th></tr></thead>
+            <thead>
+                <tr>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='royschedId', dir=${sortBy == 'royschedId' && dir == 'asc' ? 'desc' : 'asc'}, id=${id})}" style="color: white; text-decoration: none;">Schedule ID <span th:if="${sortBy == 'royschedId'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='lorange', dir=${sortBy == 'lorange' && dir == 'asc' ? 'desc' : 'asc'}, id=${id})}" style="color: white; text-decoration: none;">Low Volume <span th:if="${sortBy == 'lorange'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='hirange', dir=${sortBy == 'hirange' && dir == 'asc' ? 'desc' : 'asc'}, id=${id})}" style="color: white; text-decoration: none;">High Volume <span th:if="${sortBy == 'hirange'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='royalty', dir=${sortBy == 'royalty' && dir == 'asc' ? 'desc' : 'asc'}, id=${id})}" style="color: white; text-decoration: none;">Royalty (%) <span th:if="${sortBy == 'royalty'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                </tr>
+            </thead>
             <tbody>
                 <tr th:each="royalty : ${royalties}">
                     <td th:text="${royalty.royschedId}"></td>
@@ -15,8 +27,19 @@
                     <td th:text="${royalty.hirange}"></td>
                     <td th:text="${royalty.royalty}"></td>
                 </tr>
+                <tr th:if="${totalItems == 0}">
+                    <td colspan="4" style="text-align: center; color: #7f8c8d; padding: 20px;">No royalty brackets found for this title.</td>
+                </tr>
             </tbody>
         </table>
+
+        <div th:if="${totalItems > 0}" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e1e8ed;">
+            <span style="font-size: 14px; color: #34495e;">Page <strong th:text="${currentPage}"></strong> of <strong th:text="${totalPages}"></strong> (Total: <span th:text="${totalItems}"></span> records)</span>
+            <div>
+                <a th:if="${currentPage > 1}" th:href="@{${endpoint}(page=${currentPage - 1}, sortBy=${sortBy}, dir=${dir}, id=${id})}" class="btn" style="background: #bdc3c7; padding: 6px 15px; margin-right: 5px;">&laquo; Prev</a>
+                <a th:if="${currentPage < totalPages}" th:href="@{${endpoint}(page=${currentPage + 1}, sortBy=${sortBy}, dir=${dir}, id=${id})}" class="btn btn-success" style="padding: 6px 15px;">Next &raquo;</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

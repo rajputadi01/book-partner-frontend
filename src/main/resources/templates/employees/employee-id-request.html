@@ -5,10 +5,16 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container" style="max-width: 500px; text-align: center;">
         <h2 th:text="${formTitle}"></h2>
+        
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 15px; border-left: 5px solid #e74c3c; margin-bottom: 20px; font-weight: bold; text-align: left;" th:text="${errorMessage}"></div>
+        
         <form th:action="${actionUrl}" method="get">
             <div class="form-group">
-                <label>Target Employee ID (e.g., PMA42628M):</label>
-                <input type="text" name="id" maxlength="10" required style="text-align: center; font-size: 18px;">
+                <label th:if="${paramName == null}">Target Employee ID (e.g., PMA42628M):</label>
+                <label th:if="${paramName != null}" th:text="'Enter ' + ${paramName} + ':'"></label>
+                
+                <input th:if="${paramName == null}" type="text" name="id" maxlength="10" required style="text-align: center; font-size: 18px; padding: 10px;">
+                <input th:if="${paramName != null}" th:type="${inputType}" th:name="${paramName}" required style="text-align: center; font-size: 18px; padding: 10px;">
             </div>
             <button type="submit" class="btn btn-success">Execute Request</button>
             <a th:href="@{/web/employees/operations}" class="btn btn-danger">Cancel</a>

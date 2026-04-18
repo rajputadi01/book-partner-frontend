@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Patch Title')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container" style="max-width: 600px;">
+        <h2 th:text="${formTitle}"></h2>
+        <p style="color: #e67e22; font-weight: bold; margin-bottom: 20px;">Only fill in the fields you wish to change. Leave the rest blank.</p>
+        
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-left: 4px solid #e74c3c;" th:text="${errorMessage}"></div>
+
+        <div style="background: #f8f9fa; padding: 15px; border: 1px solid #bdc3c7; border-radius: 5px; margin-bottom: 25px;">
+            <h4 style="margin-top: 0; border-bottom: 1px solid #ccc; padding-bottom: 5px; color: #2c3e50;">Current Title Record</h4>
+            <p style="margin: 5px 0;"><strong>Title ID:</strong> <span th:text="${currentRecord.titleId}"></span></p>
+            <p style="margin: 5px 0;"><strong>Name:</strong> <span th:text="${currentRecord.titleName}"></span></p>
+            <p style="margin: 5px 0;"><strong>Genre/Type:</strong> <span th:text="${currentRecord.type}"></span></p>
+            <hr>
+            <p style="margin: 5px 0;"><strong>Publisher ID:</strong> <span th:text="${currentRecord.publisher != null ? currentRecord.publisher.pubId : 'Self-Published / Null'}"></span></p>
+            <p style="margin: 5px 0;"><strong>Price:</strong> $<span th:text="${currentRecord.price}"></span></p>
+            <p style="margin: 5px 0;"><strong>Standard Royalty:</strong> <span th:text="${currentRecord.royalty}"></span>%</p>
+        </div>
+
+        <form th:action="${actionUrl}" th:object="${title}" method="post">
+            <input type="hidden" th:field="*{titleId}">
+
+            <div class="form-group">
+                <label>New Book Name (Optional):</label>
+                <input type="text" th:field="*{titleName}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Genre/Type (Optional):</label>
+                <input type="text" th:field="*{type}" placeholder="Leave blank to keep current">
+            </div>
+            
+            <div class="form-group" style="padding: 10px; background: #e8f4f8; border-left: 4px solid #3498db;">
+                <label>New Publisher ID (Leave blank to remain Self-Published / Null):</label>
+                <input type="text" th:field="*{publisher.pubId}" placeholder="Leave blank to keep current">
+            </div>
+            
+            <div class="form-group">
+                <label>New Price (Optional):</label>
+                <input type="number" step="0.01" th:field="*{price}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Advance (Optional):</label>
+                <input type="number" step="0.01" th:field="*{advance}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Standard Royalty % (Optional):</label>
+                <input type="number" th:field="*{royalty}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Year-to-Date Sales (Optional):</label>
+                <input type="number" th:field="*{ytdSales}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Notes (Optional):</label>
+                <input type="text" th:field="*{notes}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Publication Date (Optional):</label>
+                <input type="datetime-local" th:field="*{pubdate}">
+            </div>
+
+            <button type="submit" class="btn btn-success" style="margin-top: 10px;">Submit Patch Payload</button>
+            <a th:href="@{/web/titles/operations}" class="btn btn-danger" style="margin-top: 10px;">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

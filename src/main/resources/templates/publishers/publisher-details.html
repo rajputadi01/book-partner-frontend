@@ -5,12 +5,13 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2>Publisher Details Record</h2>
-        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
+        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 20px;">
             <p><strong>ID:</strong> <span th:text="${publisher.pubId}"></span></p>
             <p><strong>Name:</strong> <span th:text="${publisher.pubName}"></span></p>
             <p><strong>Location:</strong> <span th:text="${publisher.city + ', ' + publisher.state + ' - ' + publisher.country}"></span></p>
         </div>
-        <br><a th:href="@{/web/publishers/operations}" class="btn">&larr; Back to Menu</a>
+        <a th:href="@{/web/publishers/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Back to Menu</a>
+        <a th:href="@{/web/publishers/get-by-id}" class="btn btn-primary" style="margin-left: 10px;">Search Another Publisher</a>
     </div>
 </body>
 </html>

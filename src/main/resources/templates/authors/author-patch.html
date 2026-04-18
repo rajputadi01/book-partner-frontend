@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Patch Author')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container" style="max-width: 600px;">
+        <h2 th:text="${formTitle}"></h2>
+        <p style="color: #e67e22; font-weight: bold; margin-bottom: 20px;">Only fill in the fields you wish to change. Leave the rest blank.</p>
+        
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-left: 4px solid #e74c3c;" th:text="${errorMessage}"></div>
+
+        <div style="background: #f8f9fa; padding: 15px; border: 1px solid #bdc3c7; border-radius: 5px; margin-bottom: 25px;">
+            <h4 style="margin-top: 0; border-bottom: 1px solid #ccc; padding-bottom: 5px; color: #2c3e50;">Current Database Record</h4>
+            <p style="margin: 5px 0;"><strong>Author ID:</strong> <span th:text="${currentAuthor.auId}"></span></p>
+            <p style="margin: 5px 0;"><strong>Name:</strong> <span th:text="${currentAuthor.auFname + ' ' + currentAuthor.auLname}"></span></p>
+            <p style="margin: 5px 0;"><strong>Phone:</strong> <span th:text="${currentAuthor.phone}"></span></p>
+            <p style="margin: 5px 0;"><strong>Location:</strong> <span th:text="${currentAuthor.address + ', ' + currentAuthor.city + ', ' + currentAuthor.state + ' ' + currentAuthor.zip}"></span></p>
+            <p style="margin: 5px 0;"><strong>Contract Active:</strong> <span th:text="${currentAuthor.contract}"></span></p>
+        </div>
+
+        <form th:action="${actionUrl}" th:object="${author}" method="post">
+            <input type="hidden" th:field="*{auId}">
+
+            <div class="form-group">
+                <label>New First Name (Optional):</label>
+                <input type="text" th:field="*{auFname}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Last Name (Optional):</label>
+                <input type="text" th:field="*{auLname}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Phone (Optional):</label>
+                <input type="text" th:field="*{phone}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Address (Optional):</label>
+                <input type="text" th:field="*{address}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New City (Optional):</label>
+                <input type="text" th:field="*{city}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New State (Optional):</label>
+                <input type="text" th:field="*{state}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Zip (Optional):</label>
+                <input type="text" th:field="*{zip}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Contract Status (Optional):</label>
+                <input type="number" th:field="*{contract}" placeholder="Leave blank to keep current">
+            </div>
+
+            <button type="submit" class="btn btn-success" style="margin-top: 10px;">Submit Patch Payload</button>
+            <a th:href="@{/web/authors/operations}" class="btn btn-danger" style="margin-top: 10px;">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -5,7 +5,7 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2>Title Details Record</h2>
-        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
+        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 20px;">
             <p><strong>Title ID:</strong> <span th:text="${title.titleId}"></span></p>
             <p><strong>Name:</strong> <span th:text="${title.titleName}"></span></p>
             <p><strong>Genre/Type:</strong> <span th:text="${title.type}"></span></p>
@@ -18,7 +18,8 @@
             <p><strong>Notes:</strong> <span th:text="${title.notes}"></span></p>
             <p><strong>Publication Date:</strong> <span th:text="${#temporals.format(title.pubdate, 'yyyy-MM-dd HH:mm')}"></span></p>
         </div>
-        <br><a th:href="@{/web/titles/operations}" class="btn">&larr; Back to Menu</a>
+        <a th:href="@{/web/titles/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Back to Menu</a>
+        <a th:href="@{/web/titles/get-by-id}" class="btn btn-primary" style="margin-left: 10px;">Search Another Title</a>
     </div>
 </body>
 </html>

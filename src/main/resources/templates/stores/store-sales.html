@@ -5,9 +5,22 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2>Sales Transactions at Store ID: <span th:text="${targetId}"></span></h2>
-        <a th:href="@{/web/stores/operations}" class="btn" style="margin-bottom: 15px;">&larr; Back to Menu</a>
+        
+        <div style="margin-bottom: 20px;">
+            <a th:href="@{/web/stores/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Menu</a>
+            <a th:href="@{/web/stores/relational/sales}" class="btn btn-primary" style="margin-left: 10px;">Search Another Store</a>
+        </div>
+
         <table>
-            <thead><tr><th>Order #</th><th>Title ID</th><th>Date</th><th>Qty</th><th>Terms</th></tr></thead>
+            <thead>
+                <tr>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='ordNum', dir=${sortBy == 'ordNum' && dir == 'asc' ? 'desc' : 'asc'}, id=${targetId})}" style="color: white; text-decoration: none;">Order # <span th:if="${sortBy == 'ordNum'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='titleId', dir=${sortBy == 'titleId' && dir == 'asc' ? 'desc' : 'asc'}, id=${targetId})}" style="color: white; text-decoration: none;">Title ID <span th:if="${sortBy == 'titleId'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='ordDate', dir=${sortBy == 'ordDate' && dir == 'asc' ? 'desc' : 'asc'}, id=${targetId})}" style="color: white; text-decoration: none;">Date <span th:if="${sortBy == 'ordDate'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='qty', dir=${sortBy == 'qty' && dir == 'asc' ? 'desc' : 'asc'}, id=${targetId})}" style="color: white; text-decoration: none;">Qty <span th:if="${sortBy == 'qty'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='payterms', dir=${sortBy == 'payterms' && dir == 'asc' ? 'desc' : 'asc'}, id=${targetId})}" style="color: white; text-decoration: none;">Terms <span th:if="${sortBy == 'payterms'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                </tr>
+            </thead>
             <tbody>
                 <tr th:each="sale : ${sales}">
                     <td th:text="${sale.ordNum}"></td>
@@ -16,8 +29,19 @@
                     <td th:text="${sale.qty}"></td>
                     <td th:text="${sale.payterms}"></td>
                 </tr>
+                <tr th:if="${totalItems == 0}">
+                    <td colspan="5" style="text-align: center; color: #7f8c8d; padding: 20px;">No sales found for this store.</td>
+                </tr>
             </tbody>
         </table>
+
+        <div th:if="${totalItems > 0}" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e1e8ed;">
+            <span style="font-size: 14px; color: #34495e;">Page <strong th:text="${currentPage}"></strong> of <strong th:text="${totalPages}"></strong></span>
+            <div>
+                <a th:if="${currentPage > 1}" th:href="@{${endpoint}(page=${currentPage - 1}, sortBy=${sortBy}, dir=${dir}, id=${targetId})}" class="btn" style="background: #bdc3c7; padding: 6px 15px; margin-right: 5px;">&laquo; Prev</a>
+                <a th:if="${currentPage < totalPages}" th:href="@{${endpoint}(page=${currentPage + 1}, sortBy=${sortBy}, dir=${dir}, id=${targetId})}" class="btn btn-success" style="padding: 6px 15px;">Next &raquo;</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

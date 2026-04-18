@@ -5,9 +5,26 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2 th:text="${pageTitle}"></h2>
-        <a th:href="@{/web/titles/operations}" class="btn" style="margin-bottom: 15px;">&larr; Back to Menu</a>
+        
+        <div style="margin-bottom: 20px;">
+            <a th:href="@{/web/titles/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Menu</a>
+            <a th:if="${maxPrice != null}" th:href="@{/web/titles/filter/price}" class="btn btn-primary" style="margin-left: 10px;">Filter Another Price</a>
+            <a th:if="${type != null}" th:href="@{/web/titles/filter/type}" class="btn btn-primary" style="margin-left: 10px;">Filter Another Genre</a>
+            <a th:if="${pubId != null}" th:href="@{/web/titles/filter/publisher}" class="btn btn-primary" style="margin-left: 10px;">Filter Another Publisher</a>
+            <a th:if="${beforeDate != null}" th:href="@{/web/titles/filter/date}" class="btn btn-primary" style="margin-left: 10px;">Filter Another Date</a>
+        </div>
+
         <table>
-            <thead><tr><th>ID</th><th>Book Name</th><th>Type</th><th>Pub ID</th><th>Price</th><th>Pub Date</th></tr></thead>
+            <thead>
+                <tr>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='titleId', dir=${sortBy == 'titleId' && dir == 'asc' ? 'desc' : 'asc'}, maxPrice=${maxPrice}, type=${type}, pubId=${pubId}, beforeDate=${beforeDate})}" style="color: white; text-decoration: none;">ID <span th:if="${sortBy == 'titleId'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='titleName', dir=${sortBy == 'titleName' && dir == 'asc' ? 'desc' : 'asc'}, maxPrice=${maxPrice}, type=${type}, pubId=${pubId}, beforeDate=${beforeDate})}" style="color: white; text-decoration: none;">Book Name <span th:if="${sortBy == 'titleName'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='type', dir=${sortBy == 'type' && dir == 'asc' ? 'desc' : 'asc'}, maxPrice=${maxPrice}, type=${type}, pubId=${pubId}, beforeDate=${beforeDate})}" style="color: white; text-decoration: none;">Type <span th:if="${sortBy == 'type'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='pubId', dir=${sortBy == 'pubId' && dir == 'asc' ? 'desc' : 'asc'}, maxPrice=${maxPrice}, type=${type}, pubId=${pubId}, beforeDate=${beforeDate})}" style="color: white; text-decoration: none;">Pub ID <span th:if="${sortBy == 'pubId'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='price', dir=${sortBy == 'price' && dir == 'asc' ? 'desc' : 'asc'}, maxPrice=${maxPrice}, type=${type}, pubId=${pubId}, beforeDate=${beforeDate})}" style="color: white; text-decoration: none;">Price <span th:if="${sortBy == 'price'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='pubdate', dir=${sortBy == 'pubdate' && dir == 'asc' ? 'desc' : 'asc'}, maxPrice=${maxPrice}, type=${type}, pubId=${pubId}, beforeDate=${beforeDate})}" style="color: white; text-decoration: none;">Pub Date <span th:if="${sortBy == 'pubdate'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                </tr>
+            </thead>
             <tbody>
                 <tr th:each="title : ${titles}">
                     <td th:text="${title.titleId}"></td>
@@ -17,8 +34,19 @@
                     <td th:text="${title.price}"></td>
                     <td th:text="${#temporals.format(title.pubdate, 'yyyy-MM-dd')}"></td>
                 </tr>
+                <tr th:if="${totalItems == 0}">
+                    <td colspan="6" style="text-align: center; color: #7f8c8d; padding: 20px;">No titles found.</td>
+                </tr>
             </tbody>
         </table>
+
+        <div th:if="${totalItems > 0}" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e1e8ed;">
+            <span style="font-size: 14px; color: #34495e;">Page <strong th:text="${currentPage}"></strong> of <strong th:text="${totalPages}"></strong> (Total: <span th:text="${totalItems}"></span> records)</span>
+            <div>
+                <a th:if="${currentPage > 1}" th:href="@{${endpoint}(page=${currentPage - 1}, sortBy=${sortBy}, dir=${dir}, maxPrice=${maxPrice}, type=${type}, pubId=${pubId}, beforeDate=${beforeDate})}" class="btn" style="background: #bdc3c7; padding: 6px 15px; margin-right: 5px;">&laquo; Prev</a>
+                <a th:if="${currentPage < totalPages}" th:href="@{${endpoint}(page=${currentPage + 1}, sortBy=${sortBy}, dir=${dir}, maxPrice=${maxPrice}, type=${type}, pubId=${pubId}, beforeDate=${beforeDate})}" class="btn btn-success" style="padding: 6px 15px;">Next &raquo;</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -5,17 +5,39 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2>Contracts for Author ID: <span th:text="${targetId}"></span></h2>
-        <a th:href="@{/web/authors/operations}" class="btn" style="margin-bottom: 15px;">&larr; Back to Menu</a>
+        
+        <div style="margin-bottom: 20px;">
+            <a th:href="@{/web/authors/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Menu</a>
+            <a th:href="@{/web/authors/relational/title-authors}" class="btn btn-primary" style="margin-left: 10px;">Search Another Author</a>
+        </div>
+
         <table>
-            <thead><tr><th>Title ID</th><th>Author Order</th><th>Royalty Split</th></tr></thead>
+            <thead>
+                <tr>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='titleId', dir=${sortBy == 'titleId' && dir == 'asc' ? 'desc' : 'asc'}, id=${targetId})}" style="color: white; text-decoration: none;">Title ID <span th:if="${sortBy == 'titleId'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='auOrd', dir=${sortBy == 'auOrd' && dir == 'asc' ? 'desc' : 'asc'}, id=${targetId})}" style="color: white; text-decoration: none;">Author Order <span th:if="${sortBy == 'auOrd'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='royaltyPer', dir=${sortBy == 'royaltyPer' && dir == 'asc' ? 'desc' : 'asc'}, id=${targetId})}" style="color: white; text-decoration: none;">Royalty Split <span th:if="${sortBy == 'royaltyPer'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                </tr>
+            </thead>
             <tbody>
                 <tr th:each="ta : ${titleAuthors}">
                     <td th:text="${ta.title.titleId}"></td>
                     <td th:text="${ta.auOrd}"></td>
                     <td th:text="${ta.royaltyPer + '%'}"></td>
                 </tr>
+                <tr th:if="${totalItems == 0}">
+                    <td colspan="3" style="text-align: center; color: #7f8c8d; padding: 20px;">No contracts found for this author.</td>
+                </tr>
             </tbody>
         </table>
+
+        <div th:if="${totalItems > 0}" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e1e8ed;">
+            <span style="font-size: 14px; color: #34495e;">Page <strong th:text="${currentPage}"></strong> of <strong th:text="${totalPages}"></strong></span>
+            <div>
+                <a th:if="${currentPage > 1}" th:href="@{${endpoint}(page=${currentPage - 1}, sortBy=${sortBy}, dir=${dir}, id=${targetId})}" class="btn" style="background: #bdc3c7; padding: 6px 15px; margin-right: 5px;">&laquo; Prev</a>
+                <a th:if="${currentPage < totalPages}" th:href="@{${endpoint}(page=${currentPage + 1}, sortBy=${sortBy}, dir=${dir}, id=${targetId})}" class="btn btn-success" style="padding: 6px 15px;">Next &raquo;</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

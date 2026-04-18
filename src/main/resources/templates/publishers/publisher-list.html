@@ -5,9 +5,24 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2 th:text="${pageTitle}"></h2>
-        <a th:href="@{/web/publishers/operations}" class="btn" style="margin-bottom: 15px;">&larr; Back to Menu</a>
+        
+        <div style="margin-bottom: 20px;">
+            <a th:href="@{/web/publishers/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Menu</a>
+            <a th:if="${city != null}" th:href="@{/web/publishers/filter/city}" class="btn btn-primary" style="margin-left: 10px;">Filter Another City</a>
+            <a th:if="${state != null}" th:href="@{/web/publishers/filter/state}" class="btn btn-primary" style="margin-left: 10px;">Filter Another State</a>
+            <a th:if="${country != null}" th:href="@{/web/publishers/filter/country}" class="btn btn-primary" style="margin-left: 10px;">Filter Another Country</a>
+        </div>
+
         <table>
-            <thead><tr><th>ID</th><th>Name</th><th>City</th><th>State</th><th>Country</th></tr></thead>
+            <thead>
+                <tr>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='pubId', dir=${sortBy == 'pubId' && dir == 'asc' ? 'desc' : 'asc'}, city=${city}, state=${state}, country=${country})}" style="color: white; text-decoration: none;">ID <span th:if="${sortBy == 'pubId'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='pubName', dir=${sortBy == 'pubName' && dir == 'asc' ? 'desc' : 'asc'}, city=${city}, state=${state}, country=${country})}" style="color: white; text-decoration: none;">Name <span th:if="${sortBy == 'pubName'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='city', dir=${sortBy == 'city' && dir == 'asc' ? 'desc' : 'asc'}, city=${city}, state=${state}, country=${country})}" style="color: white; text-decoration: none;">City <span th:if="${sortBy == 'city'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='state', dir=${sortBy == 'state' && dir == 'asc' ? 'desc' : 'asc'}, city=${city}, state=${state}, country=${country})}" style="color: white; text-decoration: none;">State <span th:if="${sortBy == 'state'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='country', dir=${sortBy == 'country' && dir == 'asc' ? 'desc' : 'asc'}, city=${city}, state=${state}, country=${country})}" style="color: white; text-decoration: none;">Country <span th:if="${sortBy == 'country'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                </tr>
+            </thead>
             <tbody>
                 <tr th:each="pub : ${publishers}">
                     <td th:text="${pub.pubId}"></td>
@@ -16,8 +31,19 @@
                     <td th:text="${pub.state}"></td>
                     <td th:text="${pub.country}"></td>
                 </tr>
+                <tr th:if="${totalItems == 0}">
+                    <td colspan="5" style="text-align: center; color: #7f8c8d; padding: 20px;">No records found.</td>
+                </tr>
             </tbody>
         </table>
+
+        <div th:if="${totalItems > 0}" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e1e8ed;">
+            <span style="font-size: 14px; color: #34495e;">Page <strong th:text="${currentPage}"></strong> of <strong th:text="${totalPages}"></strong> (Total: <span th:text="${totalItems}"></span> records)</span>
+            <div>
+                <a th:if="${currentPage > 1}" th:href="@{${endpoint}(page=${currentPage - 1}, sortBy=${sortBy}, dir=${dir}, city=${city}, state=${state}, country=${country})}" class="btn" style="background: #bdc3c7; padding: 6px 15px; margin-right: 5px;">&laquo; Prev</a>
+                <a th:if="${currentPage < totalPages}" th:href="@{${endpoint}(page=${currentPage + 1}, sortBy=${sortBy}, dir=${dir}, city=${city}, state=${state}, country=${country})}" class="btn btn-success" style="padding: 6px 15px;">Next &raquo;</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

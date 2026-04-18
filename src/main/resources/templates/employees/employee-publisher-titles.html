@@ -6,9 +6,21 @@
     <div class="container">
         <h2>Titles managed by the Publisher of Employee ID: <span th:text="${targetId}"></span></h2>
         <p style="color: #7f8c8d; margin-bottom: 20px;">This is a 2-hop relational query traversing Employee -> Publisher -> Titles.</p>
-        <a th:href="@{/web/employees/operations}" class="btn" style="margin-bottom: 15px;">&larr; Back to Menu</a>
+        
+        <div style="margin-bottom: 20px;">
+            <a th:href="@{/web/employees/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Menu</a>
+            <a th:href="@{/web/employees/relational/publisher-titles}" class="btn btn-primary" style="margin-left: 10px;">Search Another Employee</a>
+        </div>
+
         <table>
-            <thead><tr><th>Title ID</th><th>Book Name</th><th>Type</th><th>Price</th></tr></thead>
+            <thead>
+                <tr>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='titleId', dir=${sortBy == 'titleId' && dir == 'asc' ? 'desc' : 'asc'}, id=${id})}" style="color: white; text-decoration: none;">Title ID <span th:if="${sortBy == 'titleId'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='titleName', dir=${sortBy == 'titleName' && dir == 'asc' ? 'desc' : 'asc'}, id=${id})}" style="color: white; text-decoration: none;">Book Name <span th:if="${sortBy == 'titleName'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='type', dir=${sortBy == 'type' && dir == 'asc' ? 'desc' : 'asc'}, id=${id})}" style="color: white; text-decoration: none;">Type <span th:if="${sortBy == 'type'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='price', dir=${sortBy == 'price' && dir == 'asc' ? 'desc' : 'asc'}, id=${id})}" style="color: white; text-decoration: none;">Price <span th:if="${sortBy == 'price'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                </tr>
+            </thead>
             <tbody>
                 <tr th:each="title : ${titles}">
                     <td th:text="${title.titleId}"></td>
@@ -16,8 +28,19 @@
                     <td th:text="${title.type}"></td>
                     <td th:text="${title.price}"></td>
                 </tr>
+                <tr th:if="${totalItems == 0}">
+                    <td colspan="4" style="text-align: center; color: #7f8c8d; padding: 20px;">No titles found for this employee's publisher.</td>
+                </tr>
             </tbody>
         </table>
+
+        <div th:if="${totalItems > 0}" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e1e8ed;">
+            <span style="font-size: 14px; color: #34495e;">Page <strong th:text="${currentPage}"></strong> of <strong th:text="${totalPages}"></strong> (Total: <span th:text="${totalItems}"></span> records)</span>
+            <div>
+                <a th:if="${currentPage > 1}" th:href="@{${endpoint}(page=${currentPage - 1}, sortBy=${sortBy}, dir=${dir}, id=${id})}" class="btn" style="background: #bdc3c7; padding: 6px 15px; margin-right: 5px;">&laquo; Prev</a>
+                <a th:if="${currentPage < totalPages}" th:href="@{${endpoint}(page=${currentPage + 1}, sortBy=${sortBy}, dir=${dir}, id=${id})}" class="btn btn-success" style="padding: 6px 15px;">Next &raquo;</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>
