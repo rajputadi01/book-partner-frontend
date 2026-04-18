@@ -5,16 +5,17 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2>Employee Profile Record</h2>
-        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
+        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 20px;">
             <p><strong>Employee ID:</strong> <span th:text="${employee.empId}"></span></p>
             <p><strong>Name:</strong> <span th:text="${employee.fname + ' ' + (employee.minit != null ? employee.minit + ' ' : '') + employee.lname}"></span></p>
             <hr>
-            <p><strong>Job ID:</strong> <span th:text="${employee.job.jobId}"></span></p>
+            <p><strong>Job ID:</strong> <span th:text="${employee.job != null ? employee.job.jobId : 'None'}"></span></p>
             <p><strong>Job Clearance Level:</strong> <span th:text="${employee.jobLvl}"></span></p>
-            <p><strong>Assigned Publisher ID:</strong> <span th:text="${employee.publisher.pubId}"></span></p>
+            <p><strong>Assigned Publisher ID:</strong> <span th:text="${employee.publisher != null ? employee.publisher.pubId : 'None'}"></span></p>
             <p><strong>Hire Date:</strong> <span th:text="${#temporals.format(employee.hireDate, 'yyyy-MM-dd HH:mm')}"></span></p>
         </div>
-        <br><a th:href="@{/web/employees/operations}" class="btn">&larr; Back to Menu</a>
+        <a th:href="@{/web/employees/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Back to Menu</a>
+        <a th:href="@{/web/employees/get-by-id}" class="btn btn-primary" style="margin-left: 10px;">Search Another Employee</a>
     </div>
 </body>
 </html>

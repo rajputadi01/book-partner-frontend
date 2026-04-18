@@ -6,7 +6,7 @@
     <div class="container">
         <h2 th:text="${formTitle}"></h2>
         
-        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px;" th:text="${errorMessage}"></div>
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-left: 4px solid #e74c3c;" th:text="${errorMessage}"></div>
         
         <form th:action="${actionUrl}" th:object="${title}" method="post">
             <input type="hidden" name="isUpdate" th:value="${isUpdate}">
@@ -26,7 +26,7 @@
                 <input type="text" th:field="*{type}">
             </div>
             
-            <div class="form-group" style="padding: 10px; background: #e8f4f8; border-left: 4px solid #3498db;">
+            <div class="form-group" style="padding: 10px; background: #e8f4f8; border-left: 4px solid #3498db; border-radius: 4px;">
                 <label>Publisher ID (Leave blank to remain Self-Published / Null):</label>
                 <input type="text" th:field="*{publisher.pubId}">
             </div>

@@ -5,9 +5,21 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2 th:text="${pageTitle}"></h2>
-        <a th:href="@{/web/jobs/operations}" class="btn" style="margin-bottom: 15px;">&larr; Back to Menu</a>
+        
+        <div style="margin-bottom: 20px;">
+            <a th:href="@{/web/jobs/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Back to Menu</a>
+            <a th:if="${minLvl != null}" th:href="@{/web/jobs/filter}" class="btn btn-primary" style="margin-left: 10px;">Filter Another Range</a>
+        </div>
+
         <table>
-            <thead><tr><th>ID</th><th>Description</th><th>Min Lvl</th><th>Max Lvl</th></tr></thead>
+            <thead>
+                <tr>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='jobId', dir=${sortBy == 'jobId' && dir == 'asc' ? 'desc' : 'asc'}, minLvl=${minLvl}, maxLvl=${maxLvl})}" style="color: white; text-decoration: none;">ID <span th:if="${sortBy == 'jobId'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='jobDesc', dir=${sortBy == 'jobDesc' && dir == 'asc' ? 'desc' : 'asc'}, minLvl=${minLvl}, maxLvl=${maxLvl})}" style="color: white; text-decoration: none;">Description <span th:if="${sortBy == 'jobDesc'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='minLvl', dir=${sortBy == 'minLvl' && dir == 'asc' ? 'desc' : 'asc'}, minLvl=${minLvl}, maxLvl=${maxLvl})}" style="color: white; text-decoration: none;">Min Lvl <span th:if="${sortBy == 'minLvl'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                    <th><a th:href="@{${endpoint}(page=1, sortBy='maxLvl', dir=${sortBy == 'maxLvl' && dir == 'asc' ? 'desc' : 'asc'}, minLvl=${minLvl}, maxLvl=${maxLvl})}" style="color: white; text-decoration: none;">Max Lvl <span th:if="${sortBy == 'maxLvl'}" th:text="${dir == 'asc' ? '▲' : '▼'}"></span></a></th>
+                </tr>
+            </thead>
             <tbody>
                 <tr th:each="job : ${jobs}">
                     <td th:text="${job.jobId}"></td>
@@ -15,8 +27,19 @@
                     <td th:text="${job.minLvl}"></td>
                     <td th:text="${job.maxLvl}"></td>
                 </tr>
+                <tr th:if="${totalItems == 0}">
+                    <td colspan="4" style="text-align: center; color: #7f8c8d; padding: 20px;">No records found.</td>
+                </tr>
             </tbody>
         </table>
+
+        <div th:if="${totalItems > 0}" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; background: #f8f9fa; padding: 15px; border-radius: 8px; border: 1px solid #e1e8ed;">
+            <span style="font-size: 14px; color: #34495e;">Page <strong th:text="${currentPage}"></strong> of <strong th:text="${totalPages}"></strong> (Total: <span th:text="${totalItems}"></span> records)</span>
+            <div>
+                <a th:if="${currentPage > 1}" th:href="@{${endpoint}(page=${currentPage - 1}, sortBy=${sortBy}, dir=${dir}, minLvl=${minLvl}, maxLvl=${maxLvl})}" class="btn" style="background: #bdc3c7; padding: 6px 15px; margin-right: 5px;">&laquo; Prev</a>
+                <a th:if="${currentPage < totalPages}" th:href="@{${endpoint}(page=${currentPage + 1}, sortBy=${sortBy}, dir=${dir}, minLvl=${minLvl}, maxLvl=${maxLvl})}" class="btn btn-success" style="padding: 6px 15px;">Next &raquo;</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

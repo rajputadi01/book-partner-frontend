@@ -1,18 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:replace="~{fragments :: head('Filter by Store')}"></head>
+<head th:replace="~{fragments :: head('Store Relational Data')}"></head>
 <body>
     <div th:replace="~{fragments :: navbar}"></div>
-    <div class="container" style="max-width: 500px; text-align: center;">
-        <h2>Execute: filterDiscountsByStore (GET)</h2>
-        <form th:action="@{/web/discounts/filter/store/result}" method="get">
-            <div class="form-group">
-                <label>Store ID (4 chars):</label>
-                <input type="text" name="storId" required style="text-align: center; font-size: 18px;">
-            </div>
-            <button type="submit" class="btn btn-success">Execute Filter</button>
-            <a th:href="@{/web/discounts/operations}" class="btn btn-danger">Cancel</a>
-        </form>
+    <div class="container">
+        <h2>Store associated with Discount: <span th:text="${targetType}"></span></h2>
+        
+        <div style="margin-bottom: 20px;">
+            <a th:href="@{/web/discounts/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Menu</a>
+            <a th:href="@{/web/discounts/store}" class="btn btn-primary" style="margin-left: 10px;">Search Another Discount</a>
+        </div>
+        
+        <div th:if="${store == null}" style="background-color: #d4edda; color: #155724; padding: 20px; border-radius: 5px; border-left: 5px solid #28a745;">
+            <h3>Global Discount Active</h3>
+            <p>This discount rule is completely Global. It is not constrained to any single store ID.</p>
+        </div>
+
+        <div th:if="${store != null}">
+            <table>
+                <thead><tr><th>Store ID</th><th>Store Name</th><th>City</th><th>State</th><th>Zip</th></tr></thead>
+                <tbody>
+                    <tr>
+                        <td th:text="${store.storId}"></td>
+                        <td th:text="${store.storName}"></td>
+                        <td th:text="${store.city}"></td>
+                        <td th:text="${store.state}"></td>
+                        <td th:text="${store.zip}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

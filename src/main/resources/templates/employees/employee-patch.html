@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments :: head('Patch Employee')}"></head>
+<body>
+    <div th:replace="~{fragments :: navbar}"></div>
+    <div class="container" style="max-width: 600px;">
+        <h2 th:text="${formTitle}"></h2>
+        <p style="color: #e67e22; font-weight: bold; margin-bottom: 20px;">Only fill in the fields you wish to change. Leave the rest blank.</p>
+        
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-left: 4px solid #e74c3c;" th:text="${errorMessage}"></div>
+
+        <div style="background: #f8f9fa; padding: 15px; border: 1px solid #bdc3c7; border-radius: 5px; margin-bottom: 25px;">
+            <h4 style="margin-top: 0; border-bottom: 1px solid #ccc; padding-bottom: 5px; color: #2c3e50;">Current Employee Record</h4>
+            <p style="margin: 5px 0;"><strong>Employee ID:</strong> <span th:text="${currentRecord.empId}"></span></p>
+            <p style="margin: 5px 0;"><strong>Name:</strong> <span th:text="${currentRecord.fname + ' ' + (currentRecord.minit != null ? currentRecord.minit + ' ' : '') + currentRecord.lname}"></span></p>
+            <hr>
+            <p style="margin: 5px 0;"><strong>Job ID:</strong> <span th:if="${currentRecord.job != null}" th:text="${currentRecord.job.jobId}"></span></p>
+            <p style="margin: 5px 0;"><strong>Job Level:</strong> <span th:text="${currentRecord.jobLvl}"></span></p>
+            <p style="margin: 5px 0;"><strong>Publisher ID:</strong> <span th:if="${currentRecord.publisher != null}" th:text="${currentRecord.publisher.pubId}"></span></p>
+        </div>
+
+        <form th:action="${actionUrl}" th:object="${employee}" method="post">
+            <input type="hidden" th:field="*{empId}">
+
+            <div class="form-group">
+                <label>New First Name (Optional):</label>
+                <input type="text" th:field="*{fname}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Middle Initial (Optional):</label>
+                <input type="text" th:field="*{minit}" maxlength="1" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Last Name (Optional):</label>
+                <input type="text" th:field="*{lname}" placeholder="Leave blank to keep current">
+            </div>
+
+            <h3 style="border-bottom: 1px solid #ccc; padding-bottom: 5px; margin-top: 20px;">Assignments</h3>
+            <div class="form-group">
+                <label>New Job Role ID (Optional):</label>
+                <input type="number" th:field="*{job.jobId}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Job Level (Optional):</label>
+                <input type="number" th:field="*{jobLvl}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Publisher ID (Optional):</label>
+                <input type="text" th:field="*{publisher.pubId}" placeholder="Leave blank to keep current">
+            </div>
+            <div class="form-group">
+                <label>New Hire Date (Optional):</label>
+                <input type="datetime-local" th:field="*{hireDate}">
+            </div>
+
+            <button type="submit" class="btn btn-success" style="margin-top: 10px;">Submit Patch Payload</button>
+            <a th:href="@{/web/employees/operations}" class="btn btn-danger" style="margin-top: 10px;">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

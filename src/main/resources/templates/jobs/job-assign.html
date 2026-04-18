@@ -6,15 +6,29 @@
     <div class="container" style="max-width: 600px;">
         <h2>Execute: assignEmployeeToJob (PATCH)</h2>
         
-        <div th:if="${successMessage != null}" style="background: #d4edda; color: #155724; padding: 10px; margin-bottom: 15px;" th:text="${successMessage}"></div>
-        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px;" th:text="${errorMessage}"></div>
+        <div th:if="${successMessage != null}" style="background: #d4edda; color: #155724; padding: 15px; border-left: 5px solid #28a745; margin-bottom: 20px;" th:text="${successMessage}"></div>
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 15px; border-left: 5px solid #e74c3c; margin-bottom: 20px;">
+            <strong>Assignment Failed:</strong> <span th:text="${errorMessage}"></span>
+        </div>
 
-        <form th:action="@{/web/jobs/assign/save}" method="post">
-            <div class="form-group"><label>Target Job ID:</label><input type="number" name="jobId" required></div>
-            <div class="form-group"><label>Employee ID:</label><input type="text" name="empId" required></div>
-            <div class="form-group"><label>New Job Level (Optional):</label><input type="number" name="jobLvl"></div>
-            <button type="submit" class="btn btn-success">Execute Assignment</button>
-            <a th:href="@{/web/jobs/operations}" class="btn btn-danger">Cancel</a>
+        <form th:action="@{/web/jobs/assign/save}" method="post" style="background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
+            <div class="form-group">
+                <label style="font-weight: bold;">Target Job ID:</label>
+                <input type="number" name="jobId" required class="form-control" style="padding: 10px; width: 100%;">
+            </div>
+            <div class="form-group">
+                <label style="font-weight: bold;">Employee ID:</label>
+                <input type="text" name="empId" required class="form-control" style="padding: 10px; width: 100%;">
+            </div>
+            <div class="form-group">
+                <label style="font-weight: bold;">New Job Level (Optional):</label>
+                <input type="number" name="jobLvl" class="form-control" style="padding: 10px; width: 100%;">
+                <small style="color: #e67e22; display: block; margin-top: 5px;">Note: If provided, this MUST fall between the Job's Min and Max allowed levels.</small>
+            </div>
+            <div style="margin-top: 20px;">
+                <button type="submit" class="btn btn-success" style="padding: 10px 20px;">Execute Assignment</button>
+                <a th:href="@{/web/jobs/operations}" class="btn btn-danger" style="margin-left: 10px;">Cancel</a>
+            </div>
         </form>
     </div>
 </body>

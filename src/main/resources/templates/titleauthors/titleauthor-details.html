@@ -5,14 +5,15 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2>TitleAuthor Contract Record</h2>
-        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
+        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 20px;">
             <p><strong>Author ID:</strong> <span th:text="${titleAuthor.author.auId}"></span></p>
             <p><strong>Title ID:</strong> <span th:text="${titleAuthor.title.titleId}"></span></p>
             <hr>
             <p><strong>Author Order Status:</strong> <span th:text="${titleAuthor.auOrd}"></span></p>
             <p><strong>Allocated Royalty:</strong> <span th:text="${titleAuthor.royaltyPer}"></span>%</p>
         </div>
-        <br><a th:href="@{/web/titleauthors/operations}" class="btn">&larr; Back to Menu</a>
+        <a th:href="@{/web/titleauthors/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Back to Menu</a>
+        <a th:href="@{/web/titleauthors/get-by-id}" class="btn btn-primary" style="margin-left: 10px;">Search Another Mapping</a>
     </div>
 </body>
 </html>

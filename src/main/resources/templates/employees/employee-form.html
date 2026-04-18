@@ -6,7 +6,7 @@
     <div class="container">
         <h2 th:text="${formTitle}"></h2>
         
-        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px;" th:text="${errorMessage}"></div>
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 15px; border-left: 4px solid #e74c3c;" th:text="${errorMessage}"></div>
         
         <form th:action="${actionUrl}" th:object="${employee}" method="post">
             <input type="hidden" name="isUpdate" th:value="${isUpdate}">
@@ -36,18 +36,22 @@
             <div class="form-group">
                 <label>Job Role ID:</label>
                 <input type="number" th:field="*{job.jobId}">
+                <span class="error" th:if="${#fields.hasErrors('job.jobId')}" th:errors="*{job.jobId}"></span>
             </div>
             <div class="form-group">
                 <label>Job Level (Must fit within Job's Min/Max levels):</label>
                 <input type="number" th:field="*{jobLvl}">
+                <span class="error" th:if="${#fields.hasErrors('jobLvl')}" th:errors="*{jobLvl}"></span>
             </div>
             <div class="form-group">
                 <label>Publisher ID (Default 9952):</label>
                 <input type="text" th:field="*{publisher.pubId}">
+                <span class="error" th:if="${#fields.hasErrors('publisher.pubId')}" th:errors="*{publisher.pubId}"></span>
             </div>
             <div class="form-group">
                 <label>Hire Date (Leave blank for NOW):</label>
                 <input type="datetime-local" th:field="*{hireDate}">
+                <span class="error" th:if="${#fields.hasErrors('hireDate')}" th:errors="*{hireDate}"></span>
             </div>
 
             <button type="submit" class="btn btn-success">Submit Payload</button>

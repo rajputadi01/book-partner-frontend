@@ -5,7 +5,7 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2>Discount Details Record</h2>
-        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
+        <div style="background: #fdfefe; padding: 20px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 20px;">
             <p><strong>Discount Type (ID):</strong> <span th:text="${discount.discountType}"></span></p>
             <p><strong>Applies to Store:</strong> 
                 <span th:if="${discount.store != null}" th:text="${discount.store.storId}"></span>
@@ -16,7 +16,8 @@
             <p><strong>High Quantity:</strong> <span th:text="${discount.highQty}"></span></p>
             <p><strong>Discount Amount:</strong> <span th:text="${discount.discountAmount}"></span>%</p>
         </div>
-        <br><a th:href="@{/web/discounts/operations}" class="btn">&larr; Back to Menu</a>
+        <a th:href="@{/web/discounts/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Back to Menu</a>
+        <a th:href="@{/web/discounts/get-by-type}" class="btn btn-primary" style="margin-left: 10px;">Search Another Type</a>
     </div>
 </body>
 </html>

@@ -5,7 +5,12 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2>Title Linked to Schedule ID: <span th:text="${targetId}"></span></h2>
-        <a th:href="@{/web/roysched/operations}" class="btn" style="margin-bottom: 15px;">&larr; Menu</a>
+        
+        <div style="margin-bottom: 20px;">
+            <a th:href="@{/web/roysched/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Menu</a>
+            <a th:href="@{/web/roysched/title}" class="btn btn-primary" style="margin-left: 10px;">Search Another Schedule</a>
+        </div>
+
         <table>
             <thead><tr><th>Title ID</th><th>Book Name</th><th>Type</th><th>Price</th></tr></thead>
             <tbody>

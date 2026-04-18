@@ -5,10 +5,13 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container" style="max-width: 500px; text-align: center;">
         <h2 th:text="${formTitle}"></h2>
+        
+        <div th:if="${errorMessage != null}" style="background: #f8d7da; color: #721c24; padding: 15px; border-left: 5px solid #e74c3c; margin-bottom: 20px; font-weight: bold; text-align: left;" th:text="${errorMessage}"></div>
+        
         <form th:action="${actionUrl}" method="get">
             <div class="form-group">
                 <label th:text="'Enter ' + ${paramName} + ':'"></label>
-                <input type="text" th:name="${paramName}" required style="text-align: center; font-size: 18px;">
+                <input type="text" th:name="${paramName}" required style="text-align: center; font-size: 18px; padding: 10px;">
             </div>
             <button type="submit" class="btn btn-success">Execute Filter</button>
             <a th:href="@{/web/publishers/operations}" class="btn btn-danger">Cancel</a>
