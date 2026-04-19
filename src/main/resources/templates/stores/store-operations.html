@@ -6,19 +6,55 @@
     <div class="container">
         <h1 style="border-bottom: 2px solid #3498db; padding-bottom: 10px;">Stores: Operations Menu</h1>
         <p>Select a specific endpoint to test the service method.</p>
-        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
-            <a th:href="@{/web/stores/create}" class="btn btn-success">1. createStore (POST)</a>
-            <a th:href="@{/web/stores/get-all}" class="btn">2. getAllStores (GET)</a>
-            <a th:href="@{/web/stores/get-by-id}" class="btn">3. getStoreById (GET)</a>
-            <a th:href="@{/web/stores/update}" class="btn" style="background-color: #f39c12;">4. updateStore (PUT)</a>
-            <a th:href="@{/web/stores/patch}" class="btn" style="background-color: #e67e22;">5. patchStore (PATCH)</a>
-            <a th:href="@{/web/stores/filter/city}" class="btn">6. getStoresByCity (GET)</a>
-            <a th:href="@{/web/stores/filter/state}" class="btn">7. getStoresByState (GET)</a>
-            <a th:href="@{/web/stores/relational/sales}" class="btn" style="background-color: #9b59b6;">8. getSalesByStoreId (GET)</a>
-            <a th:href="@{/web/stores/relational/titles}" class="btn" style="background-color: #9b59b6;">9. getTitlesByStoreId (GET)</a>
-            <a th:href="@{/web/stores/relational/publishers}" class="btn" style="background-color: #9b59b6;">10. getPublishersByStoreId (GET)</a>
-            <a th:href="@{/web/stores/relational/authors}" class="btn" style="background-color: #9b59b6;">11. getAuthorsByStoreId (GET)</a>
-            <a th:href="@{/web/stores/relational/discounts}" class="btn" style="background-color: #9b59b6;">12. getDiscountsByStoreId (GET)</a>
+        <div class="endpoint-list">
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/web/stores/create}" class="endpoint-item">
+                <span class="method-badge badge-post">POST</span>
+                <span class="endpoint-name">1. Create a Store</span>
+            </a>
+            <a th:href="@{/web/stores/get-all}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">2. Get all Stores</span>
+            </a>
+            <a th:href="@{/web/stores/get-by-id}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">3. Get a Store by ID</span>
+            </a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/web/stores/update}" class="endpoint-item">
+                <span class="method-badge badge-put">PUT</span>
+                <span class="endpoint-name">4. Update a Store</span>
+            </a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/web/stores/patch}" class="endpoint-item">
+                <span class="method-badge badge-patch">PATCH</span>
+                <span class="endpoint-name">5. Patch a Store</span>
+            </a>
+            <a th:href="@{/web/stores/filter/city}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">6. Get Stores in a City</span>
+            </a>
+            <a th:href="@{/web/stores/filter/state}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">7. Get Stores in a state</span>
+            </a>
+            <a th:href="@{/web/stores/relational/sales}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">8. Get Sales by Store ID</span>
+            </a>
+            <a th:href="@{/web/stores/relational/titles}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">9. Get Titles in a Specific Store</span>
+            </a>
+            <a th:href="@{/web/stores/relational/publishers}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">10. Get Publishers whose book are in a specific Store</span>
+            </a>
+            <a th:href="@{/web/stores/relational/authors}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">11. Get Authors whose books are in a specific Store</span>
+            </a>
+            <a th:href="@{/web/stores/relational/discounts}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">12. Get discoutns active in a specific store</span>
+            </a>
         </div>
     </div>
 </body>

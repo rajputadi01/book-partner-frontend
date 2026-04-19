@@ -8,16 +8,43 @@
         <h1 style="border-bottom: 2px solid #3498db; padding-bottom: 10px;">Jobs Entity: Operations Menu</h1>
         <p>Select a specific endpoint to test the service method.</p>
         
-        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
-            <a th:href="@{/web/jobs/create}" class="btn btn-success">1. createJob (POST)</a>
-            <a th:href="@{/web/jobs/get-all}" class="btn">2. getAllJobs (GET)</a>
-            <a th:href="@{/web/jobs/get-by-id}" class="btn">3. getJobById (GET)</a>
-            <a th:href="@{/web/jobs/update}" class="btn" style="background-color: #f39c12;">4. updateJob (PUT)</a>
-            <a th:href="@{/web/jobs/patch}" class="btn" style="background-color: #e67e22;">5. patchJob (PATCH)</a>
-            <a th:href="@{/web/jobs/filter}" class="btn">6. getJobsBetween (GET)</a>
-            <a th:href="@{/web/jobs/employees}" class="btn" style="background-color: #9b59b6;">7. getEmployeesByJobId (GET)</a>
-            <a th:href="@{/web/jobs/publishers}" class="btn" style="background-color: #9b59b6;">8. getPublishersByJobId (GET)</a>
-            <a th:href="@{/web/jobs/assign}" class="btn" style="background-color: #34495e;">9. assignEmployeeToJob (PATCH)</a>
+        <div class="endpoint-list">
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/web/jobs/create}" class="endpoint-item">
+                <span class="method-badge badge-post">POST</span>
+                <span class="endpoint-name">1. Create a Job</span>
+            </a>
+            <a th:href="@{/web/jobs/get-all}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">2. Get all Jobs</span>
+            </a>
+            <a th:href="@{/web/jobs/get-by-id}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">3. Get a Job by ID</span>
+            </a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/web/jobs/update}" class="endpoint-item">
+                <span class="method-badge badge-put">PUT</span>
+                <span class="endpoint-name">4. Update a Job</span>
+            </a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/web/jobs/patch}" class="endpoint-item">
+                <span class="method-badge badge-patch">PATCH</span>
+                <span class="endpoint-name">5. Patch a Job</span>
+            </a>
+            <a th:href="@{/web/jobs/filter}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">6. Get Jobs Between a Minimum and Maximum Level</span>
+            </a>
+            <a th:href="@{/web/jobs/employees}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">7. Get Employees for a Specific Job by ID</span>
+            </a>
+            <a th:href="@{/web/jobs/publishers}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">8. Get Publishers for a Specific Job by ID</span>
+            </a>
+            <a th:href="@{/web/jobs/assign}" class="endpoint-item">
+                <span class="method-badge badge-patch">PATCH</span>
+                <span class="endpoint-name">9. Assign an Employee to a Specific Job</span>
+            </a>
         </div>
     </div>
 </body>

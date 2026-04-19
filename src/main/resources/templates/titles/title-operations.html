@@ -6,22 +6,67 @@
     <div class="container">
         <h1 style="border-bottom: 2px solid #3498db; padding-bottom: 10px;">Titles: Operations Menu</h1>
         <p>Select a specific endpoint to test the service method.</p>
-        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 20px;">
-            <a th:href="@{/web/titles/create}" class="btn btn-success">1. createTitle (POST)</a>
-            <a th:href="@{/web/titles/get-all}" class="btn">2. getAllTitles (GET)</a>
-            <a th:href="@{/web/titles/get-by-id}" class="btn">3. getTitleById (GET)</a>
-            <a th:href="@{/web/titles/update}" class="btn" style="background-color: #f39c12;">4. updateTitle (PUT)</a>
-            <a th:href="@{/web/titles/patch}" class="btn" style="background-color: #e67e22;">5. patchTitle (PATCH)</a>
-            <a th:href="@{/web/titles/filter/price}" class="btn">6. filterTitlesByPrice (GET)</a>
-            <a th:href="@{/web/titles/filter/type}" class="btn">7. filterTitlesByType (GET)</a>
-            <a th:href="@{/web/titles/filter/publisher}" class="btn">8. filterTitlesByPublisher (GET)</a>
-            <a th:href="@{/web/titles/filter/date}" class="btn">9. filterTitlesByDateBefore (GET)</a>
-            <a th:href="@{/web/titles/relational/publisher}" class="btn" style="background-color: #9b59b6;">10. getPublisherByTitle (GET)</a>
-            <a th:href="@{/web/titles/relational/sales}" class="btn" style="background-color: #9b59b6;">11. getSalesByTitle (GET)</a>
-            <a th:href="@{/web/titles/relational/royalties}" class="btn" style="background-color: #9b59b6;">12. getRoyaltiesByTitle (GET)</a>
-            <a th:href="@{/web/titles/relational/title-authors}" class="btn" style="background-color: #9b59b6;">13. getTitleAuthorsByTitle (GET)</a>
-            <a th:href="@{/web/titles/relational/authors}" class="btn" style="background-color: #9b59b6;">14. getAuthorsByTitle (GET)</a>
-            <a th:href="@{/web/titles/relational/stores}" class="btn" style="background-color: #9b59b6;">15. getStoresByTitle (GET)</a>
+        <div class="endpoint-list">
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/web/titles/create}" class="endpoint-item">
+                <span class="method-badge badge-post">POST</span>
+                <span class="endpoint-name">1. Create a Title</span>
+            </a>
+            <a th:href="@{/web/titles/get-all}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">2. Get all Titles</span>
+            </a>
+            <a th:href="@{/web/titles/get-by-id}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">3. Get Title by ID</span>
+            </a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/web/titles/update}" class="endpoint-item">
+                <span class="method-badge badge-put">PUT</span>
+                <span class="endpoint-name">4. Update a Title</span>
+            </a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/web/titles/patch}" class="endpoint-item">
+                <span class="method-badge badge-patch">PATCH</span>
+                <span class="endpoint-name">5. Patch a Title</span>
+            </a>
+            <a th:href="@{/web/titles/filter/price}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">6. Filter Titles by Price</span>
+            </a>
+            <a th:href="@{/web/titles/filter/type}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">7. Filter Titles by Price</span>
+            </a>
+            <a th:href="@{/web/titles/filter/publisher}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">8. Filter Titles by Publisher</span>
+            </a>
+            <a th:href="@{/web/titles/filter/date}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">9. Filter Titles by Date of Publishing</span>
+            </a>
+            <a th:href="@{/web/titles/relational/publisher}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">10. Get Publisher Details for a Specific Title</span>
+            </a>
+            <a th:href="@{/web/titles/relational/sales}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">11. Get Sales for a Specific Title</span>
+            </a>
+            <a th:href="@{/web/titles/relational/royalties}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">12. Get Royalties for a Specific Title</span>
+            </a>
+            <a th:href="@{/web/titles/relational/title-authors}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">13. Get Title Author Mappings for a Specific Title</span>
+            </a>
+            <a th:href="@{/web/titles/relational/authors}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">14. Get Authors Details for a Specific Title</span>
+            </a>
+            <a th:href="@{/web/titles/relational/stores}" class="endpoint-item">
+                <span class="method-badge badge-get">GET</span>
+                <span class="endpoint-name">15. Get Store selling a Specific Title</span>
+            </a>
         </div>
     </div>
 </body>

@@ -1,102 +1,84 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Book Partner Portal - Team Portfolio</title>
+    <th:block th:replace="~{fragments :: head('Book Partner Portal - Team Portfolio')}"></th:block>
     
     <style>
-		
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 50px;
+        /* --- OPTION A: Premium Animated Gradient Background --- */
+        body { 
+            text-align: center; 
+            /* Soft mix of off-white, faint primary blue, and pure white */
+            background: linear-gradient(-45deg, #f4f7f6, #e0f2fe, #ffffff, #e8f4f8);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
         }
         
-        .header {
-            margin-bottom: 50px;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
+        /* ---------------------------------------------------- */
 
-        .header h1 {
-            color: #333;
-        }
+        .header { margin-top: 60px; margin-bottom: 50px; }
+        .header h1 { font-size: 36px; margin-bottom: 10px; }
+        .header p { color: var(--text-muted); font-size: 18px; }
 
-        /* This creates the 5-in-a-row grid natively */
-        .team-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap; /* Allows wrapping on small screens */
-        }
+        .team-container { display: flex; justify-content: center; gap: 25px; flex-wrap: wrap; margin-bottom: 60px; }
 
-        /* Styling for the individual member cards */
         .team-member {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 20px;
+            background-color: var(--card-bg);
+            border: 1px solid #eaeaea;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 25px 20px;
             width: 150px;
-            text-decoration: none; /* Removes the underline from the link */
-            color: #333;
-            transition: 0.3s;
+            text-decoration: none;
+            color: var(--dark);
+            transition: var(--transition);
         }
 
         .team-member:hover {
-            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+            border-color: var(--primary);
         }
 
-        .team-member img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-        }
-
-        .team-member h3 {
-            margin: 0;
-            font-size: 18px;
-        }
-		
+        .team-member img { width: 90px; height: 90px; border-radius: 50%; margin-bottom: 15px; border: 3px solid #f0f4f8; }
+        .team-member h3 { margin: 0; font-size: 18px; }
     </style>
-
 </head>
 <body>
+
+    <div th:replace="~{fragments :: navbar}"></div>
 
     <div class="header">
         <h1>Book Partner Portal</h1>
         <p>Engineering Team Portfolio & API Dashboard</p>
-        <hr style="width: 50%; border: 1px solid #ccc;">
+        <hr style="width: 100px; border: 2px solid var(--primary); margin: 20px auto; border-radius: 2px;">
     </div>
 
     <div class="team-container">
-        
         <a th:href="@{/portfolio/shireen}" class="team-member">
             <img src="https://api.dicebear.com/7.x/initials/svg?seed=Shireen&backgroundColor=0d6efd" alt="Shireen">
             <h3>Shireen</h3>
         </a>
-
         <a th:href="@{/portfolio/sakshi}" class="team-member">
             <img src="https://api.dicebear.com/7.x/initials/svg?seed=Sakshi&backgroundColor=198754" alt="Sakshi">
             <h3>Sakshi</h3>
         </a>
-
-		<a th:href="@{/portfolio/aditya}" class="team-member"> 
-			<img th:src="@{/images/aditya.png}" alt="Aditya">
-			<h3>Aditya</h3>
-		</a>
-
+        <a th:href="@{/portfolio/aditya}" class="team-member"> 
+            <img th:src="@{/images/aditya.png}" alt="Aditya">
+            <h3>Aditya</h3>
+        </a>
         <a th:href="@{/portfolio/rajas}" class="team-member">
             <img src="https://api.dicebear.com/7.x/initials/svg?seed=Rajas&backgroundColor=ffc107" alt="Rajas">
             <h3>Rajas</h3>
         </a>
-
         <a th:href="@{/portfolio/prathamesh}" class="team-member">
             <img src="https://api.dicebear.com/7.x/initials/svg?seed=Prathamesh&backgroundColor=6f42c1" alt="Prathamesh">
             <h3>Prathamesh</h3>
         </a>
-
     </div>
 
 </body>

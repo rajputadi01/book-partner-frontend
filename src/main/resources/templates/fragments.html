@@ -1,57 +1,148 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 
 <head th:fragment="head(title)">
     <meta charset="UTF-8">
     <title th:text="${title}">Book Partner Portal</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Base Page Styles */
-        body { font-family: Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; color: #333; }
-        .container { max-width: 1000px; margin: 40px auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1, h2, h3 { color: #2c3e50; }
-        
-        /* Navigation Bar Styles */
-        .navbar { background-color: #2c3e50; padding: 15px 30px; display: flex; gap: 20px; flex-wrap: wrap; }
-        .navbar a { color: white; text-decoration: none; font-size: 16px; font-weight: bold; }
-        .navbar a:hover { color: #3498db; }
-        
-        /* Table Styles */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 20px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background-color: #34495e; color: white; }
-        tr:hover { background-color: #f9f9f9; }
-        
-        /* Form & Input Styles */
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; }
-        input[type="text"], input[type="number"], input[type="datetime-local"], select { 
-            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; 
+        /* GLOBAL VARIABLES: Unified Aesthetics */
+        :root {
+            --primary: #3498db;
+            --primary-hover: #2980b9;
+            --dark: #2c3e50;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --shadow: 0 8px 24px rgba(0,0,0,0.08); /* Unified soft shadow */
+            --radius: 12px; /* Unified rounded corners */
+            --transition: all 0.3s ease;
         }
-        .error { color: #e74c3c; font-size: 14px; margin-top: 5px; display: block; font-weight: bold; }
+
+        /* Base Page Styles */
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); margin: 0; padding: 0; color: var(--text-main); }
+        
+        /* Unified Card & Container */
+        .container { max-width: 1050px; margin: 40px auto; background: var(--card-bg); padding: 35px; border-radius: var(--radius); box-shadow: var(--shadow); }
+        .card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); }
+        
+        h1, h2, h3 { color: var(--dark); font-weight: 600; }
+
+        .navbar { background-color: var(--dark); padding: 15px 30px; display: flex; align-items: center; flex-wrap: wrap; box-shadow: 0 4px 12px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000;}
+        .navbar a { color: white; text-decoration: none; font-size: 15px; font-weight: 600; transition: var(--transition); }
+        .navbar a:hover { color: var(--primary); }
+        .nav-brand { display: flex; align-items: center; gap: 10px; margin-right: 20px; color: white; font-weight: 700; font-size: 18px; border-right: 1px solid rgba(255,255,255,0.2); padding-right: 20px; }
+        .nav-links { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+		
+        /* Auth Styles */
+        .auth-section { margin-left: auto; display: flex; align-items: center; gap: 15px; color: white; font-size: 14px; }
+        .btn-sm { padding: 6px 12px; font-size: 13px; }
+        
+        /* MODERN TABLES: Zebra Striping & Rounded Headers */
+        table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px; margin-bottom: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        th, td { padding: 14px 15px; text-align: left; border-bottom: 1px solid #eee; font-size: 15px; }
+        th { background-color: var(--dark); color: white; font-weight: 600; text-transform: uppercase; font-size: 13px; letter-spacing: 0.5px; }
+        tr:nth-child(even) { background-color: #fafbfc; } /* Zebra Stripe */
+        tr:hover { background-color: #f0f4f8; } /* Hover row */
+        td:last-child, th:last-child { border-right: none; }
+        
+        /* Form & Input Styles (WITH FOCUS GLOW) */
+        .form-group { margin-bottom: 18px; }
+        label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; color: var(--dark); }
+        input[type="text"], input[type="password"], input[type="number"], input[type="datetime-local"], select { 
+            width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: var(--transition);
+        }
+        input:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2); } /* Focus Glow */
+        .error { color: #e74c3c; font-size: 13px; margin-top: 5px; display: block; font-weight: 600; }
         
         /* Button Styles */
-        .btn { display: inline-block; padding: 10px 15px; color: white; background-color: #3498db; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; font-size: 14px;}
-        .btn:hover { background-color: #2980b9; }
+        .btn { display: inline-block; padding: 10px 18px; color: white; background-color: var(--primary); text-decoration: none; border-radius: 6px; border: none; cursor: pointer; font-size: 14px; font-weight: 600; transition: var(--transition);}
+        .btn:hover { background-color: var(--primary-hover); transform: translateY(-1px); box-shadow: 0 4px 8px rgba(52,152,219,0.3); }
         .btn-success { background-color: #2ecc71; }
-        .btn-success:hover { background-color: #27ae60; }
+        .btn-success:hover { background-color: #27ae60; box-shadow: 0 4px 8px rgba(46,204,113,0.3); }
         .btn-danger { background-color: #e74c3c; }
-        .btn-danger:hover { background-color: #c0392b; }
+        .btn-danger:hover { background-color: #c0392b; box-shadow: 0 4px 8px rgba(231,76,60,0.3); }
+
+        /* --- PROFESSIONAL ENDPOINT LIST STYLES --- */
+        .endpoint-list { display: flex; flex-direction: column; gap: 10px; margin-top: 25px; }
+        
+        .endpoint-item {
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            padding: 14px 20px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+        
+        .endpoint-item:hover {
+            transform: translateX(4px); /* Slight shift to the right on hover */
+            border-color: #cbd5e1;
+            background: #f8fafc;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+        
+        /* The sleek API Method Badges */
+        .method-badge {
+            width: 70px;
+            text-align: center;
+            border-radius: 20px;
+            padding: 5px 0;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-right: 15px;
+        }
+        
+        .badge-get { background: rgba(52, 152, 219, 0.15); color: #2980b9; }
+        .badge-post { background: rgba(46, 204, 113, 0.15); color: #27ae60; }
+        .badge-put, .badge-patch { background: rgba(243, 156, 18, 0.15); color: #d35400; }
+        .badge-delete { background: rgba(231, 76, 60, 0.15); color: #c0392b; }
+        
+        .endpoint-name { font-weight: 600; font-size: 15px; }
+        /* ------------------------------------------ */
     </style>
 </head>
 
 <body>
     <div th:fragment="navbar" class="navbar">
-        <a th:href="@{/}">← Back to Team Hub</a>
-        <a th:href="@{/web/authors/operations}">Authors</a>
-        <a th:href="@{/web/titles/operations}">Titles</a>
-        <a th:href="@{/web/publishers/operations}">Publishers</a>
-        <a th:href="@{/web/employees/operations}">Employees</a>
-        <a th:href="@{/web/stores/operations}">Stores</a>
-        <a th:href="@{/web/jobs/operations}">Jobs</a>
-        <a th:href="@{/web/discounts/operations}">Discounts</a>
-        <a th:href="@{/web/titleauthors/operations}">TitleAuthors</a>
-        <a th:href="@{/web/sales/operations}">Sales</a>
-        <a th:href="@{/web/roysched/operations}">Royalty Schedules</a>
+        <div class="nav-brand">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+            Book Partner Portal
+        </div>
+
+        <div class="nav-links">
+            <a th:href="@{/}">Team Hub</a>
+			<a th:href="@{/web/jobs/operations}">Jobs</a>
+			<a th:href="@{/web/publishers/operations}">Publishers</a>
+            <a th:href="@{/web/authors/operations}">Authors</a>
+			<a th:href="@{/web/stores/operations}">Stores</a>
+			<a th:href="@{/web/titles/operations}">Titles</a>
+            <a th:href="@{/web/employees/operations}">Employees</a>
+            <a th:href="@{/web/discounts/operations}">Discounts</a>
+            <a th:href="@{/web/titleauthors/operations}">TitleAuthors</a>
+            <a th:href="@{/web/sales/operations}">Sales</a>
+            <a th:href="@{/web/roysched/operations}">Royalty</a>
+        </div>
+
+        <div class="auth-section">
+            <div sec:authorize="isAuthenticated()">
+                <strong sec:authentication="name"></strong> 
+                <span style="font-size: 11px; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 12px; margin-left: 5px;"><span sec:authentication="authorities"></span></span>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" method="post" style="margin: 0;">
+                    <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>

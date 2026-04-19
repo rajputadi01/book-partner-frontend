@@ -26,6 +26,7 @@ public class ApiClientConfig
     {
         return RestClient.builder()
                 .baseUrl("http://localhost:8080") // The IP of your backend server
+                .requestInterceptor(new BasicAuthInterceptor())
                 .build();
     }
 
