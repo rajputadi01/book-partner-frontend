@@ -9,7 +9,7 @@ public class DiscountDto {
     @NotBlank(message = "Discount Type is required")
     private String discountType;
 
-    // Nested StoreDto to handle the relational mapping in your Thymeleaf form
+  
     private StoreDto store; 
 
     private Short lowQty;
@@ -20,7 +20,7 @@ public class DiscountDto {
 
     public DiscountDto() {}
 
-    // Getters and Setters
+   
     public String getDiscountType() { return discountType; }
     public void setDiscountType(String discountType) { this.discountType = discountType; }
     public StoreDto getStore() { return store; }

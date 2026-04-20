@@ -15,7 +15,7 @@ public class TitleAuthorDto {
 
     public TitleAuthorDto() {}
 
-    // Getters and Setters
+ 
     public AuthorDto getAuthor() { return author; }
     public void setAuthor(AuthorDto author) { this.author = author; }
 

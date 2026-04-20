@@ -32,7 +32,6 @@ public class TitleAuthorMvcController {
         return "titleauthors/titleauthor-operations";
     }
 
-    // --- CRUD ---
     @GetMapping("/get-all")
     public String getAll(
             @RequestParam(value = "page", defaultValue = "1") int page,
@@ -66,7 +65,7 @@ public class TitleAuthorMvcController {
 
     @PostMapping("/create/save")
     public String saveCreate(@Valid @ModelAttribute("titleAuthor") TitleAuthorDto titleAuthor, BindingResult result, Model model) {
-        // Pre-Flight Validation: Royalty must be between 0 and 100
+ 
         if (titleAuthor.getRoyaltyPer() != null && (titleAuthor.getRoyaltyPer() < 0 || titleAuthor.getRoyaltyPer() > 100)) {
             result.rejectValue("royaltyPer", "error.titleAuthor", "Royalty percentage must be between 0 and 100.");
         }
@@ -183,10 +182,8 @@ public class TitleAuthorMvcController {
     @GetMapping("/patch/form")
     public String showPatchForm(@RequestParam("auId") String auId, @RequestParam("titleId") String titleId, Model model, RedirectAttributes redirectAttributes) {
         try {
-            // Read-Only Existing Data
             model.addAttribute("currentRecord", titleAuthorClient.getTitleAuthorById(auId, titleId));
             
-            // Blank Patch DTO
             TitleAuthorDto patchDto = new TitleAuthorDto();
             patchDto.setAuthor(new AuthorDto());
             patchDto.getAuthor().setAuId(auId);
@@ -225,7 +222,6 @@ public class TitleAuthorMvcController {
         }
     }
 
-    // --- FILTERS & SEARCH ---
     @GetMapping("/filter/lead")
     public String getLeadAuthors(
             @RequestParam(value = "page", defaultValue = "1") int page,
@@ -347,7 +343,6 @@ public class TitleAuthorMvcController {
         }
     }
 
-    // --- DYNAMIC SEARCH ---
     @GetMapping("/search")
     public String searchForm() {
         return "titleauthors/titleauthor-search-request";
@@ -388,9 +383,6 @@ public class TitleAuthorMvcController {
         }
     }
 
-    // ==========================================
-    // UTILITY ENGINES
-    // ==========================================
 
     private <T> List<T> paginateList(List<T> list, int page, int size, Model model) {
         if (list == null || list.isEmpty()) {

@@ -183,13 +183,13 @@ public class DiscountMvcController {
     @GetMapping("/patch/form")
     public String showPatchForm(@RequestParam("type") String type, Model model, RedirectAttributes redirectAttributes) {
         try {
-            // 1. Current data for read-only display
+
             model.addAttribute("currentDiscount", discountClient.getDiscountByType(type));
             
-            // 2. Blank DTO for patching
+ 
             DiscountDto patchDto = new DiscountDto();
             patchDto.setDiscountType(type);
-            patchDto.setStore(new StoreDto()); // Safe nested object binding
+            patchDto.setStore(new StoreDto()); 
             
             model.addAttribute("discount", patchDto);
             model.addAttribute("formTitle", "Patch Discount Data");
@@ -206,7 +206,7 @@ public class DiscountMvcController {
 
     @PostMapping("/patch/save")
     public String savePatch(@ModelAttribute("discount") DiscountDto discount, RedirectAttributes redirectAttributes) {
-        // Business Validation for partial updates
+  
         if (discount.getLowQty() != null && discount.getHighQty() != null && discount.getLowQty() > discount.getHighQty()) {
             redirectAttributes.addFlashAttribute("errorMessage", "Validation Error: Low Quantity cannot be greater than High Quantity.");
             return "redirect:/web/discounts/patch/form?type=" + discount.getDiscountType();
@@ -225,7 +225,7 @@ public class DiscountMvcController {
         }
     }
 
-    // --- FILTERS ---
+
     @GetMapping("/filter/qty")
     public String filterQty() {
         return "discounts/discount-qty-request";
@@ -324,7 +324,7 @@ public class DiscountMvcController {
         }
     }
 
-    // --- RELATIONAL ---
+
     @GetMapping("/store")
     public String relStoreRequest(Model model) {
         model.addAttribute("formTitle", "Get Store by Discount");
@@ -335,7 +335,7 @@ public class DiscountMvcController {
     @GetMapping("/store/result")
     public String relStoreResult(@RequestParam("type") String type, Model model, RedirectAttributes redirectAttributes) {
         try {
-            // Will return null if backend sent 204 No Content, which thymeleaf handles!
+           
             model.addAttribute("targetType", type);
             model.addAttribute("store", discountClient.getStoreByDiscountType(type)); 
             return "discounts/discount-store-result";
@@ -348,9 +348,7 @@ public class DiscountMvcController {
         }
     }
 
-    // ==========================================
-    // UTILITY ENGINES
-    // ==========================================
+
 
     private void cleanEmptyStoreId(DiscountDto discount) {
         if (discount.getStore() != null && (discount.getStore().getStorId() == null || discount.getStore().getStorId().trim().isEmpty())) {
