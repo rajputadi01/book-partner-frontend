@@ -36,7 +36,7 @@ public interface DiscountClient {
     @GetExchange("/discounts/filter/store")
     List<DiscountDto> filterDiscountsByStore(@RequestParam("storId") String storId);
 
-    // Returns a StoreDto, or null if the backend returns 204 No Content (Global Discount)
+  
     @GetExchange("/discounts/{type}/store")
     StoreDto getStoreByDiscountType(@PathVariable("type") String type);
 }
