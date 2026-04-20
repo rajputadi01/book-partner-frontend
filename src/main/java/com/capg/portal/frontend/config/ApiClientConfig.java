@@ -22,7 +22,12 @@ public class ApiClientConfig {
     @Bean
     public RestClient customRestClient() {
         return RestClient.builder()
+<<<<<<< Updated upstream
                 .baseUrl("http://localhost:8080") // The IP of your backend server
+=======
+                .baseUrl("http://10.30.74.55:8080") // The IP of your backend server
+                .requestInterceptor(new BasicAuthInterceptor())
+>>>>>>> Stashed changes
                 .build();
     }
 

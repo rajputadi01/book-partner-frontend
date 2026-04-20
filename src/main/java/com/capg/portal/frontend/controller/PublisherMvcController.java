@@ -211,9 +211,106 @@ public class PublisherMvcController {
     }
 
     @GetMapping("/relational/stores/result")
+<<<<<<< Updated upstream
     public String relStoresResult(@RequestParam("id") String id, Model model) {
         model.addAttribute("targetId", id);
         model.addAttribute("stores", publisherClient.getStoresByPublisher(id));
         return "publishers/publisher-stores";
+=======
+    public String relStoresResult(
+            @RequestParam("id") String id,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "sortBy", defaultValue = "storId") String sortBy,
+            @RequestParam(value = "dir", defaultValue = "asc") String dir,
+            Model model, RedirectAttributes redirectAttributes) {
+        try {
+            publisherClient.getPublisherById(id); // Validate publisher exists
+            List<StoreDto> list = publisherClient.getStoresByPublisher(id);
+            sortStores(list, sortBy, dir);
+
+            model.addAttribute("targetId", id);
+            model.addAttribute("stores", paginateList(list, page, PAGE_SIZE, model));
+            model.addAttribute("endpoint", "/web/publishers/relational/stores/result");
+            model.addAttribute("sortBy", sortBy);
+            model.addAttribute("dir", dir);
+            return "publishers/publisher-stores";
+        } catch (HttpStatusCodeException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", extractErrorMessage(e));
+            return "redirect:/web/publishers/relational/stores";
+        }
+    }
+
+    
+
+    private <T> List<T> paginateList(List<T> list, int page, int size, Model model) {
+        if (list == null || list.isEmpty()) {
+            model.addAttribute("currentPage", 1);
+            model.addAttribute("totalPages", 1);
+            model.addAttribute("totalItems", 0);
+            return list;
+        }
+        int totalItems = list.size();
+        int totalPages = (int) Math.ceil((double) totalItems / size);
+        if (page < 1) page = 1;
+        if (page > totalPages) page = totalPages;
+
+        int start = (page - 1) * size;
+        int end = Math.min(start + size, totalItems);
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
+        return list.subList(start, end);
+    }
+
+    private void sortPublishers(List<PublisherDto> list, String sortBy, String dir) {
+        if ("pubName".equals(sortBy)) list.sort(Comparator.comparing(PublisherDto::getPubName, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else if ("city".equals(sortBy)) list.sort(Comparator.comparing(PublisherDto::getCity, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else if ("state".equals(sortBy)) list.sort(Comparator.comparing(PublisherDto::getState, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else if ("country".equals(sortBy)) list.sort(Comparator.comparing(PublisherDto::getCountry, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else list.sort(Comparator.comparing(PublisherDto::getPubId));
+        if ("desc".equals(dir)) Collections.reverse(list);
+    }
+
+    private void sortEmployees(List<EmployeeDto> list, String sortBy, String dir) {
+        if ("fname".equals(sortBy)) list.sort(Comparator.comparing(EmployeeDto::getFname, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else if ("lname".equals(sortBy)) list.sort(Comparator.comparing(EmployeeDto::getLname, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else if ("jobLvl".equals(sortBy)) list.sort(Comparator.comparing(EmployeeDto::getJobLvl, Comparator.nullsLast(Comparator.naturalOrder())));
+        else list.sort(Comparator.comparing(EmployeeDto::getEmpId));
+        if ("desc".equals(dir)) Collections.reverse(list);
+    }
+
+    private void sortTitles(List<TitleDto> list, String sortBy, String dir) {
+        if ("titleName".equals(sortBy)) list.sort(Comparator.comparing(TitleDto::getTitleName, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else if ("type".equals(sortBy)) list.sort(Comparator.comparing(TitleDto::getType, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else if ("price".equals(sortBy)) list.sort(Comparator.comparing(TitleDto::getPrice, Comparator.nullsLast(Comparator.naturalOrder())));
+        else list.sort(Comparator.comparing(TitleDto::getTitleId));
+        if ("desc".equals(dir)) Collections.reverse(list);
+    }
+
+    private void sortAuthors(List<AuthorDto> list, String sortBy, String dir) {
+        if ("auFname".equals(sortBy)) list.sort(Comparator.comparing(AuthorDto::getAuFname, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else if ("auLname".equals(sortBy)) list.sort(Comparator.comparing(AuthorDto::getAuLname, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else if ("phone".equals(sortBy)) list.sort(Comparator.comparing(AuthorDto::getPhone, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else list.sort(Comparator.comparing(AuthorDto::getAuId));
+        if ("desc".equals(dir)) Collections.reverse(list);
+    }
+
+    private void sortStores(List<StoreDto> list, String sortBy, String dir) {
+        if ("storName".equals(sortBy)) list.sort(Comparator.comparing(StoreDto::getStorName, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else if ("city".equals(sortBy)) list.sort(Comparator.comparing(StoreDto::getCity, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else if ("state".equals(sortBy)) list.sort(Comparator.comparing(StoreDto::getState, Comparator.nullsLast(String::compareToIgnoreCase)));
+        else list.sort(Comparator.comparing(StoreDto::getStorId));
+        if ("desc".equals(dir)) Collections.reverse(list);
+    }
+
+    private String extractErrorMessage(HttpStatusCodeException e) {
+        try {
+            com.fasterxml.jackson.databind.JsonNode node = new com.fasterxml.jackson.databind.ObjectMapper().readTree(e.getResponseBodyAsString());
+            return node.has("message") ? node.get("message").asText() : e.getMessage();
+        } catch (Exception ex) {
+            return "Validation or connection error occurred.";
+        }
+>>>>>>> Stashed changes
     }
 }
