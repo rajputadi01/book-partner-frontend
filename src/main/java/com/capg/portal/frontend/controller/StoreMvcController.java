@@ -30,7 +30,6 @@ public class StoreMvcController {
         return "stores/store-operations";
     }
 
-    // --- CRUD ---
     @GetMapping("/get-all")
     public String getAllStores(
             @RequestParam(value = "page", defaultValue = "1") int page,
@@ -179,7 +178,6 @@ public class StoreMvcController {
         }
     }
 
-    // --- FILTERS ---
     @GetMapping("/filter/city")
     public String filterCity(Model model) {
         model.addAttribute("formTitle", "Filter by City");
@@ -234,7 +232,6 @@ public class StoreMvcController {
         return "stores/store-list";
     }
 
-    // --- RELATIONAL ---
     @GetMapping("/relational/sales")
     public String relSales(Model model) {
         model.addAttribute("formTitle", "Get Sales by Store");
@@ -390,9 +387,6 @@ public class StoreMvcController {
         }
     }
 
-    // ==========================================
-    // UTILITY ENGINES
-    // ==========================================
     private <T> List<T> paginateList(List<T> list, int page, int size, Model model) {
         if (list == null || list.isEmpty()) {
             model.addAttribute("currentPage", 1);

@@ -36,7 +36,6 @@ public class AuthorDto {
 
     public AuthorDto() {}
 
-    // Getters and Setters
     public String getAuId() { return auId; }
     public void setAuId(String auId) { this.auId = auId; }
     public String getAuLname() { return auLname; }
