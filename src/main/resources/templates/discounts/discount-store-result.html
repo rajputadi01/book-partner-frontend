@@ -5,7 +5,11 @@
     <div th:replace="~{fragments :: navbar}"></div>
     <div class="container">
         <h2>Store associated with Discount: <span th:text="${targetType}"></span></h2>
-        <a th:href="@{/web/discounts/operations}" class="btn" style="margin-bottom: 15px;">&larr; Back to Menu</a>
+        
+        <div style="margin-bottom: 20px;">
+            <a th:href="@{/web/discounts/operations}" class="btn" style="background-color: #7f8c8d; color: white;">&larr; Menu</a>
+            <a th:href="@{/web/discounts/store}" class="btn btn-primary" style="margin-left: 10px;">Search Another Discount</a>
+        </div>
         
         <div th:if="${store == null}" style="background-color: #d4edda; color: #155724; padding: 20px; border-radius: 5px; border-left: 5px solid #28a745;">
             <h3>Global Discount Active</h3>

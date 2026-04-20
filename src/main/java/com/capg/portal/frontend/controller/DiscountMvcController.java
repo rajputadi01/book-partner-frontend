@@ -294,7 +294,7 @@ public class DiscountMvcController {
 
     @GetMapping("/filter/store")
     public String filterStore() {
-        return "discounts/discount-store-request";
+        return "discounts/discount-store-request"; 
     }
 
     @GetMapping("/filter/store/result")
