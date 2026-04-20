@@ -39,6 +39,11 @@ public class BackendAuthenticationProvider implements AuthenticationProvider {
                     .retrieve()
                     .body(JsonNode.class);
 
+            if (response == null) 
+            {
+                throw new AuthenticationServiceException("Empty response from backend.");
+            }
+            
             // Extract Roles from the backend response
             List<GrantedAuthority> authorities = new ArrayList<>();
             response.get("authorities").forEach(authNode -> {
