@@ -30,7 +30,6 @@ public class AuthorMvcController {
         return "authors/author-operations";
     }
 
-    // --- CRUD OPERATIONS ---
     @GetMapping("/get-all")
     public String getAllAuthors(
             @RequestParam(value = "page", defaultValue = "1") int page,
@@ -164,7 +163,6 @@ public class AuthorMvcController {
 
     @PostMapping("/patch/save")
     public String savePatch(@ModelAttribute("author") AuthorDto author, RedirectAttributes redirectAttributes) {
-        // Sanitization for empty strings to null
         if (author.getAuFname() != null && author.getAuFname().trim().isEmpty()) author.setAuFname(null);
         if (author.getAuLname() != null && author.getAuLname().trim().isEmpty()) author.setAuLname(null);
         if (author.getPhone() != null && author.getPhone().trim().isEmpty()) author.setPhone(null);
@@ -182,7 +180,6 @@ public class AuthorMvcController {
         }
     }
 
-    // --- FILTERS ---
     @GetMapping("/filter/contract")
     public String filterContract(Model model) {
         model.addAttribute("formTitle", "Filter by Contract Status");
@@ -267,7 +264,6 @@ public class AuthorMvcController {
         return "authors/author-list";
     }
 
-    // --- RELATIONAL (Spiderweb) ---
     @GetMapping("/relational/title-authors")
     public String relTitleAuthors(Model model) {
         model.addAttribute("formTitle", "Get Contracts by Author");
@@ -392,9 +388,6 @@ public class AuthorMvcController {
         }
     }
 
-    // ==========================================
-    // UTILITY ENGINES
-    // ==========================================
     private <T> List<T> paginateList(List<T> list, int page, int size, Model model) {
         if (list == null || list.isEmpty()) {
             model.addAttribute("currentPage", 1);

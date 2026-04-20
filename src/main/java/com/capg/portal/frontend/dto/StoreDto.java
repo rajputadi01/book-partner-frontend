@@ -28,7 +28,6 @@ public class StoreDto {
 
     public StoreDto() {}
 
-    // Getters and Setters
     public String getStorId() { return storId; }
     public void setStorId(String storId) { this.storId = storId; }
     public String getStorName() { return storName; }
