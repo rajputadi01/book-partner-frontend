@@ -20,7 +20,6 @@ public class RoyaltyScheduleDto {
 
     public RoyaltyScheduleDto() {}
 
-    // Getters and Setters
     public Integer getRoyschedId() { return royschedId; }
     public void setRoyschedId(Integer royschedId) { this.royschedId = royschedId; }
 

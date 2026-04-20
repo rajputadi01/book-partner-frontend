@@ -30,7 +30,6 @@ public class SalesDto {
 
     public SalesDto() {}
 
-    // Getters and Setters
     public StoreDto getStore() { return store; }
     public void setStore(StoreDto store) { this.store = store; }
 

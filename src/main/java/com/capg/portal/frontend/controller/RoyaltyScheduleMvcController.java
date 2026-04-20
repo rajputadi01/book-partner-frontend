@@ -31,7 +31,6 @@ public class RoyaltyScheduleMvcController {
         return "roysched/roysched-operations";
     }
 
-    // --- CRUD ---
     @GetMapping("/get-all")
     public String getAll(
             @RequestParam(value = "page", defaultValue = "1") int page,
@@ -183,10 +182,8 @@ public class RoyaltyScheduleMvcController {
     @GetMapping("/patch/form")
     public String showPatchForm(@RequestParam("id") Integer id, Model model, RedirectAttributes redirectAttributes) {
         try {
-            // Read-Only Reference Data
             model.addAttribute("currentRecord", royaltyScheduleClient.getRoyaltyScheduleById(id));
             
-            // Blank Patch DTO
             RoyaltyScheduleDto patchDto = new RoyaltyScheduleDto();
             patchDto.setRoyschedId(id);
             patchDto.setTitle(new TitleDto());
@@ -224,7 +221,6 @@ public class RoyaltyScheduleMvcController {
         }
     }
 
-    // --- FILTERS ---
     @GetMapping("/filter/range")
     public String filterRange() {
         return "roysched/roysched-range-request";
@@ -239,7 +235,6 @@ public class RoyaltyScheduleMvcController {
             @RequestParam(value = "dir", defaultValue = "asc") String dir,
             Model model, RedirectAttributes redirectAttributes) {
         
-        // Pre-flight sanity check for the GET request
         if (minLorange > maxHirange) {
             redirectAttributes.addFlashAttribute("errorMessage", "Minimum Low Range cannot be greater than Maximum High Range.");
             return "redirect:/web/roysched/filter/range";
@@ -292,7 +287,6 @@ public class RoyaltyScheduleMvcController {
         }
     }
 
-    // --- RELATIONAL (1-Hop) ---
     @GetMapping("/title")
     public String relTitleRequest(Model model) {
         model.addAttribute("formTitle", "Get Title by Schedule ID");
@@ -315,9 +309,6 @@ public class RoyaltyScheduleMvcController {
         }
     }
 
-    // ==========================================
-    // UTILITY ENGINES
-    // ==========================================
 
     private <T> List<T> paginateList(List<T> list, int page, int size, Model model) {
         if (list == null || list.isEmpty()) {

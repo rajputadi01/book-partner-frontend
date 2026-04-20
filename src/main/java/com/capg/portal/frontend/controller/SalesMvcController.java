@@ -32,7 +32,6 @@ public class SalesMvcController {
         return "sales/sales-operations";
     }
 
-    // --- CRUD ---
     @GetMapping("/get-all")
     public String getAll(
             @RequestParam(value = "page", defaultValue = "1") int page,
@@ -195,10 +194,8 @@ public class SalesMvcController {
             @RequestParam("titleId") String titleId, 
             Model model, RedirectAttributes redirectAttributes) {
         try {
-            // Read-Only Display Data
             model.addAttribute("currentRecord", salesClient.getSaleById(storId, ordNum, titleId));
             
-            // Blank Form DTO
             SalesDto patchDto = new SalesDto();
             patchDto.setStore(new StoreDto());
             patchDto.getStore().setStorId(storId);
@@ -224,7 +221,6 @@ public class SalesMvcController {
         // Sanitization
         if (sale.getPayterms() != null && sale.getPayterms().trim().isEmpty()) sale.setPayterms(null);
         
-        // Business Validation for partial updates
         if (sale.getQty() != null && sale.getQty() < 1) {
             redirectAttributes.addFlashAttribute("errorMessage", "Validation Error: Quantity must be at least 1.");
             return "redirect:/web/sales/patch/form?storId=" + sale.getStore().getStorId() + "&ordNum=" + sale.getOrdNum() + "&titleId=" + sale.getTitle().getTitleId();
@@ -242,7 +238,6 @@ public class SalesMvcController {
         }
     }
 
-    // --- FILTERS ---
     @GetMapping("/filter/store")
     public String filterStore(Model model) {
         model.addAttribute("formTitle", "Transactions by Store ID");
@@ -339,7 +334,6 @@ public class SalesMvcController {
         }
     }
 
-    // --- BI AGGREGATIONS ---
     @GetMapping("/bi/total-qty/store")
     public String biTotalQtyStore(Model model) {
         model.addAttribute("formTitle", "Total Volume (Qty) by Store");
@@ -403,9 +397,7 @@ public class SalesMvcController {
         }
     }
 
-    // ==========================================
-    // UTILITY ENGINES
-    // ==========================================
+    
     private <T> List<T> paginateList(List<T> list, int page, int size, Model model) {
         if (list == null || list.isEmpty()) {
             model.addAttribute("currentPage", 1);
