@@ -9,51 +9,51 @@
         <div class="endpoint-list">
             <a sec:authorize="hasRole('ADMIN')" th:href="@{/web/publishers/create}" class="endpoint-item">
                 <span class="method-badge badge-post">POST</span>
-                <span class="endpoint-name">1. createPublisher</span>
+                <span class="endpoint-name">1. Create Publisher</span>
             </a>
             <a th:href="@{/web/publishers/get-all}" class="endpoint-item">
                 <span class="method-badge badge-get">GET</span>
-                <span class="endpoint-name">2. getAllPublishers</span>
+                <span class="endpoint-name">2. Get All Publishers</span>
             </a>
             <a th:href="@{/web/publishers/get-by-id}" class="endpoint-item">
                 <span class="method-badge badge-get">GET</span>
-                <span class="endpoint-name">3. getPublisherById</span>
+                <span class="endpoint-name">3. Get Publisher By Id</span>
             </a>
             <a sec:authorize="hasRole('ADMIN')" th:href="@{/web/publishers/update}" class="endpoint-item">
                 <span class="method-badge badge-put">PUT</span>
-                <span class="endpoint-name">4. updatePublisher</span>
+                <span class="endpoint-name">4. Update Publisher</span>
             </a>
             <a sec:authorize="hasRole('ADMIN')" th:href="@{/web/publishers/patch}" class="endpoint-item">
                 <span class="method-badge badge-patch">PATCH</span>
-                <span class="endpoint-name">5. patchPublisher</span>
+                <span class="endpoint-name">5. Patch Publisher</span>
             </a>
             <a th:href="@{/web/publishers/filter/city}" class="endpoint-item">
                 <span class="method-badge badge-get">GET</span>
-                <span class="endpoint-name">6. getPublishersByCity</span>
+                <span class="endpoint-name">6. Get Publishers By City</span>
             </a>
             <a th:href="@{/web/publishers/filter/state}" class="endpoint-item">
                 <span class="method-badge badge-get">GET</span>
-                <span class="endpoint-name">7. getPublishersByState</span>
+                <span class="endpoint-name">7. Get Publishers By State</span>
             </a>
             <a th:href="@{/web/publishers/filter/country}" class="endpoint-item">
                 <span class="method-badge badge-get">GET</span>
-                <span class="endpoint-name">8. getPublishersByCountry</span>
+                <span class="endpoint-name">8. Get Publishers By Country</span>
             </a>
             <a th:href="@{/web/publishers/relational/employees}" class="endpoint-item">
                 <span class="method-badge badge-get">GET</span>
-                <span class="endpoint-name">9. getEmployeesByPublisherId</span>
+                <span class="endpoint-name">9. Get Employees By PublisherId</span>
             </a>
             <a th:href="@{/web/publishers/relational/titles}" class="endpoint-item">
                 <span class="method-badge badge-get">GET</span>
-                <span class="endpoint-name">10. getTitlesByPublisherId</span>
+                <span class="endpoint-name">10. Get Titles By PublisherId</span>
             </a>
             <a th:href="@{/web/publishers/relational/authors}" class="endpoint-item">
                 <span class="method-badge badge-get">GET</span>
-                <span class="endpoint-name">11. getAuthorsByPublisherId</span>
+                <span class="endpoint-name">11. Get Authors By PublisherId</span>
             </a>
             <a th:href="@{/web/publishers/relational/stores}" class="endpoint-item">
                 <span class="method-badge badge-get">GET</span>
-                <span class="endpoint-name">12. getStoresByPublisherId</span>
+                <span class="endpoint-name">12. Get Stores By PublisherId</span>
             </a>
         </div>
     </div>

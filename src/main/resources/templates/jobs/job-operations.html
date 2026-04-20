@@ -41,7 +41,7 @@
                 <span class="method-badge badge-get">GET</span>
                 <span class="endpoint-name">8. Get Publishers for a Specific Job by ID</span>
             </a>
-            <a th:href="@{/web/jobs/assign}" class="endpoint-item">
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/web/jobs/assign}" class="endpoint-item">
                 <span class="method-badge badge-patch">PATCH</span>
                 <span class="endpoint-name">9. Assign an Employee to a Specific Job</span>
             </a>
